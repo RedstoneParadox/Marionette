@@ -21,6 +21,7 @@
       "io.github.redstoneparadox.marionette.Marionette"
     ]
   },
+  "accesswidener": "marionette.accesswidener",
   "mixins": [
     "marionette.mixins.json"
   ],
