@@ -2,11 +2,16 @@ package io.github.redstoneparadox.marionette.test.entity;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.*;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
 import net.minecraft.world.World;
 
-public class TestEntity extends LivingEntity {
+import java.util.ArrayList;
+
+public class TestEntity extends MobEntity {
 	public static final EntityType<TestEntity> TYPE = FabricEntityTypeBuilder.<TestEntity>create(SpawnGroup.CREATURE, TestEntity::new).dimensions(EntityDimensions.fixed(1.0f, 1.0f)).build();
 
 	protected TestEntity(World world) {
@@ -19,13 +24,18 @@ public class TestEntity extends LivingEntity {
 	}
 
 	@Override
+	protected void initDataTracker() {
+		super.initDataTracker();
+	}
+
+	@Override
 	public Iterable<ItemStack> getArmorItems() {
-		return null;
+		return new ArrayList<>();
 	}
 
 	@Override
 	public ItemStack getEquippedStack(EquipmentSlot slot) {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
@@ -35,6 +45,10 @@ public class TestEntity extends LivingEntity {
 
 	@Override
 	public Arm getMainArm() {
-		return null;
+		return Arm.RIGHT;
+	}
+
+	public static DefaultAttributeContainer.Builder createTestEntityAttributes() {
+		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0D);
 	}
 }

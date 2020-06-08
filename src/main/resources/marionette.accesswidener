@@ -1,4 +1,5 @@
 accessWidener v1 named
+# Model Part
 accessible field net/minecraft/client/model/ModelPart textureWidth F
 accessible field net/minecraft/client/model/ModelPart textureHeight F
 accessible field net/minecraft/client/model/ModelPart textureOffsetU I
