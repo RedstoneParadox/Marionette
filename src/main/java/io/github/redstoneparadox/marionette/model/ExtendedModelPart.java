@@ -1,12 +1,9 @@
-package io.github.redstoneparadox.marionette;
+package io.github.redstoneparadox.marionette.model;
 
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A {@link ModelPart} with some additional properties.

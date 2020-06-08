@@ -1,6 +1,5 @@
-package io.github.redstoneparadox.marionette;
+package io.github.redstoneparadox.marionette.model;
 
-import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
