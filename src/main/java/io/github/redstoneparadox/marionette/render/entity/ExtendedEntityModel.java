@@ -11,6 +11,11 @@ import net.minecraft.entity.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An {@link EntityModel} that implements {@link AnimationPlayer}.
+ *
+ * @param <T> The entity type.
+ */
 public abstract class ExtendedEntityModel<T extends Entity> extends EntityModel<T> implements AnimationPlayer {
 	private final List<Animation> animations = new ArrayList<>();
 

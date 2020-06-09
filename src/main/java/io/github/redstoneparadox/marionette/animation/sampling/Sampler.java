@@ -1,10 +1,11 @@
 package io.github.redstoneparadox.marionette.animation.sampling;
 
 import io.github.redstoneparadox.marionette.animation.KeyFrame;
-import net.minecraft.util.Pair;
-
 import java.util.List;
 
+/**
+ * Used to interpolate over a series of key frames.
+ */
 public abstract class Sampler {
 	protected final List<KeyFrame> keyFrames;
 
@@ -28,7 +29,7 @@ public abstract class Sampler {
 		return new KeyFramePair(keyFrames.get(frameIndex - 1), keyFrames.get(frameIndex));
 	}
 
-	protected class KeyFramePair {
+	protected static class KeyFramePair {
 		final KeyFrame first;
 		final KeyFrame second;
 
