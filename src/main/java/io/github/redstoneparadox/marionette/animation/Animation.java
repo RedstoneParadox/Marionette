@@ -1,6 +1,7 @@
 package io.github.redstoneparadox.marionette.animation;
 
 import io.github.redstoneparadox.marionette.Marionette;
+import io.github.redstoneparadox.marionette.animation.sampling.CubicSampler;
 import io.github.redstoneparadox.marionette.animation.sampling.LinearSampler;
 import io.github.redstoneparadox.marionette.animation.sampling.Sampler;
 import io.github.redstoneparadox.marionette.animation.sampling.SamplerFactory;
@@ -97,15 +98,28 @@ public final class Animation {
 		boolean creatingTrack = false;
 
 		/**
-		 * Sets the sampler to {@link LinearSampler}. Best for
-		 * when the track consists of constant motion such as
-		 * when continuously spinning a
-		 * {@link net.minecraft.client.model.ModelPart}.
+		 * <p>Sets the sampler to {@link LinearSampler}. Best for
+		 * when the track consists of constant motion such as when
+		 * continuously spinning a
+		 * {@link net.minecraft.client.model.ModelPart}. This is
+		 * the default sampler.</p>
 		 *
 		 * @return The {@link Builder} for further modification.
 		 */
 		public Builder linearSampler() {
 			factory = LinearSampler::new;
+			return this;
+		}
+
+		/**
+		 * <p>Sets the sampler to {@link CubicSampler}. Best for
+		 * when you need smoother transitions between
+		 * keyframes. </p>
+		 *
+		 * @return The {@link Builder} for further modification.
+		 */
+		public Builder cubicSampler() {
+			factory = CubicSampler::new;
 			return this;
 		}
 

@@ -10,6 +10,7 @@ import net.minecraft.client.util.math.MatrixStack;
 public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 	public final ExtendedModelPart part;
 	public final Animation spinAnimation;
+	public final Animation breathingAnimation;
 
 	public TestEntityModel() {
 		textureWidth = 16;
@@ -20,15 +21,23 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 		part.setPivot(0, 16, 0);
 
 		spinAnimation = new Animation.Builder()
-				.startTrack(0.0f)
-				.keyFrame((float) (2*Math.PI), 200)
-				.keyFrame((float) (4*Math.PI), 200)
-				.completeTrack(value -> part.yaw = value)
-				.startTrack(0.0f)
+				.startTrack((float) ((Math.PI)/4))
+				.keyFrame((float) (-(Math.PI)/4), 100)
 				.keyFrame((float) ((Math.PI)/4), 100)
-				.keyFrame((float) (-(Math.PI)/4), 200)
-				.keyFrame(0.0f, 100)
+				.cubicSampler()
 				.completeTrack(value -> part.pitch = value)
+				.build(this, true);
+
+		breathingAnimation = new Animation.Builder()
+				.startTrack(1.0f)
+				.keyFrame(4.0f, 200)
+				.keyFrame(1.0f, 200)
+				.cubicSampler()
+				.completeTrack((t -> {
+					part.scaleX = t;
+					part.scaleY = t;
+					part.scaleZ = t;
+				}))
 				.build(this, true);
 
 		spinAnimation.play();
@@ -41,11 +50,13 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 
 	@Override
 	protected void update(TestEntity entity) {
-		if (entity.animated) {
+		if (entity.spinning) {
 			spinAnimation.play();
+			breathingAnimation.pause();
 		}
 		else {
 			spinAnimation.pause();
+			breathingAnimation.play();
 		}
 	}
 }

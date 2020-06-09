@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class TestEntity extends MobEntity {
 	public static final EntityType<TestEntity> TYPE = FabricEntityTypeBuilder.<TestEntity>create(SpawnGroup.CREATURE, TestEntity::new).dimensions(EntityDimensions.fixed(1.0f, 1.0f)).build();
-	public boolean animated = true;
+	public boolean spinning = true;
 
 	protected TestEntity(World world) {
 		super(TYPE, world);
@@ -51,10 +51,10 @@ public class TestEntity extends MobEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		animated = false;
+		spinning = false;
 		for (PlayerEntity player: world.getPlayers()) {
 			if (player.getPos().distanceTo(getPos()) < 10) {
-				animated = true;
+				spinning = true;
 				break;
 			}
 		}
