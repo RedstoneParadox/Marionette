@@ -11,9 +11,20 @@ import java.util.function.DoubleConsumer;
 public final class Animation {
 	private final List<Track> tracks;
 	private int tick = 0;
+	private final int length;
+	private final boolean repeat;
 
-	public Animation(List<Track> tracks) {
+	public Animation(List<Track> tracks, boolean repeat) {
 		this.tracks = tracks;
+		this.repeat = repeat;
+
+		int length = 0;
+
+		for (Track track: tracks) {
+			length = Math.max(length, track.steps.size());
+		}
+
+		this.length = length;
 	}
 
 	public static Builder builder() {
@@ -24,7 +35,12 @@ public final class Animation {
 		for (Track track: tracks) {
 			track.to(tick);
 		}
+
 		tick += 1;
+
+		if (repeat && tick >= length) {
+			reset();
+		}
 	}
 
 	public void reset() {
@@ -90,8 +106,8 @@ public final class Animation {
 			return this;
 		}
 
-		public Animation build() {
-			return new Animation(tracks);
+		public Animation build(boolean repeat) {
+			return new Animation(tracks, repeat);
 		}
 	}
 }

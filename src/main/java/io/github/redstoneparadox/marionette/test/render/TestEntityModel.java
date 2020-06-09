@@ -16,14 +16,14 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 		textureHeight = 16;
 
 		part = new ExtendedModelPart(this);
-		part.addCuboid(-8, 0, -8, 16, 16, 16);
+		part.addCuboid(-8, 8, -8, 16, 16, 16);
 
 
 		spinAnimation = Animation.builder()
 				.startTrack(0.0)
-				.addKeyFrame(1.0, 200)
+				.addKeyFrame(Math.PI, 100)
 				.completeTrack((value -> part.yaw = (float) value))
-				.build();
+				.build(true);
 	}
 
 	@Override
