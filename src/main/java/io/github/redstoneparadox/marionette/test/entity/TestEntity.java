@@ -8,6 +8,7 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
 import net.minecraft.world.World;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 public class TestEntity extends MobEntity {
 	public static final EntityType<TestEntity> TYPE = FabricEntityTypeBuilder.<TestEntity>create(SpawnGroup.CREATURE, TestEntity::new).dimensions(EntityDimensions.fixed(1.0f, 1.0f)).build();
+	public boolean animated = true;
 
 	protected TestEntity(World world) {
 		super(TYPE, world);
@@ -44,6 +46,18 @@ public class TestEntity extends MobEntity {
 	@Override
 	public void equipStack(EquipmentSlot slot, ItemStack stack) {
 
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		animated = false;
+		for (PlayerEntity player: world.getPlayers()) {
+			if (player.getPos().distanceTo(getPos()) < 10) {
+				animated = true;
+				break;
+			}
+		}
 	}
 
 	@Override

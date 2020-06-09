@@ -38,4 +38,14 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
 		part.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 	}
+
+	@Override
+	protected void update(TestEntity entity) {
+		if (entity.animated) {
+			spinAnimation.play();
+		}
+		else {
+			spinAnimation.pause();
+		}
+	}
 }
