@@ -10,7 +10,7 @@ import net.minecraft.client.util.math.MatrixStack;
 public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 	public final ExtendedModelPart part;
 	public final Animation spinAnimation;
-	public final Animation breathingAnimation;
+	public final Animation scalingAnimation;
 
 	public TestEntityModel() {
 		textureWidth = 16;
@@ -28,7 +28,7 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 				.completeTrack(value -> part.pitch = value)
 				.build(this, true);
 
-		breathingAnimation = new Animation.Builder()
+		scalingAnimation = new Animation.Builder()
 				.startTrack(1.0f)
 				.keyFrame(4.0f, 200)
 				.keyFrame(1.0f, 200)
@@ -52,11 +52,11 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 	protected void update(TestEntity entity) {
 		if (entity.spinning) {
 			spinAnimation.play();
-			breathingAnimation.pause();
+			scalingAnimation.pause();
 		}
 		else {
 			spinAnimation.pause();
-			breathingAnimation.play();
+			scalingAnimation.play();
 		}
 	}
 }
