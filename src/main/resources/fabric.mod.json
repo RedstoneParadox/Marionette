@@ -25,7 +25,7 @@
       "io.github.redstoneparadox.marionette.test.MarionetteTestClient"
     ]
   },
-  "accesswidener": "marionette.accesswidener",
+  "accessWidener": "marionette.accesswidener",
   "mixins": [
     "marionette.mixins.json"
   ],
