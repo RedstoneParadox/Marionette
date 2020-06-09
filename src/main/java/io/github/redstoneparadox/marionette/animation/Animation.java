@@ -4,6 +4,7 @@ import io.github.redstoneparadox.marionette.Marionette;
 import io.github.redstoneparadox.marionette.animation.sampling.LinearSampler;
 import io.github.redstoneparadox.marionette.animation.sampling.Sampler;
 import io.github.redstoneparadox.marionette.animation.sampling.SamplerFactory;
+import io.github.redstoneparadox.marionette.api.AnimationPlayer;
 import it.unimi.dsi.fastutil.floats.FloatConsumer;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public final class Animation {
 	private int tick = 0;
 	private final int length;
 	private final boolean repeat;
+	private boolean playing = false;
 
 	public Animation(List<Track> tracks, boolean repeat) {
 		this.tracks = tracks;
@@ -32,20 +34,31 @@ public final class Animation {
 		return new Builder();
 	}
 
-	public void step() {
-		for (Track track: tracks) {
-			track.seek(tick);
-		}
-
-		tick += 1;
-
-		if (repeat && tick >= length) {
-			reset();
-		}
+	public void play() {
+		playing = true;
 	}
 
-	public void reset() {
+	public void pause() {
+		playing = false;
+	}
+
+	public void stop() {
+		playing = false;
 		tick = 0;
+	}
+
+	public void step() {
+		if (playing) {
+			for (Track track: tracks) {
+				track.seek(tick);
+			}
+
+			tick += 1;
+
+			if (repeat && tick >= length) {
+				tick = 0;
+			}
+		}
 	}
 
 	private static class Track {
@@ -112,8 +125,10 @@ public final class Animation {
 			return this;
 		}
 
-		public Animation build(boolean repeat) {
-			return new Animation(tracks, repeat);
+		public Animation build(AnimationPlayer animationPlayer, boolean repeat) {
+			Animation animation = new Animation(tracks, repeat);
+			animationPlayer.addAnimation(animation);
+			return animation;
 		}
 	}
 

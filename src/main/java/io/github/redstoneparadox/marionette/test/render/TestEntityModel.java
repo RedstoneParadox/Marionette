@@ -1,7 +1,7 @@
 package io.github.redstoneparadox.marionette.test.render;
 
 import io.github.redstoneparadox.marionette.animation.Animation;
-import io.github.redstoneparadox.marionette.model.ExtendedEntityModel;
+import io.github.redstoneparadox.marionette.render.entity.ExtendedEntityModel;
 import io.github.redstoneparadox.marionette.model.ExtendedModelPart;
 import io.github.redstoneparadox.marionette.test.entity.TestEntity;
 import net.minecraft.client.render.VertexConsumer;
@@ -29,12 +29,13 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 				.keyFrame((float) (-(Math.PI)/4), 200)
 				.keyFrame(0.0f, 100)
 				.completeTrack(value -> part.pitch = value)
-				.build(true);
+				.build(this, true);
+
+		spinAnimation.play();
 	}
 
 	@Override
 	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
 		part.render(matrices, vertices, light, overlay, red, green, blue, alpha);
-		spinAnimation.step();
 	}
 }
