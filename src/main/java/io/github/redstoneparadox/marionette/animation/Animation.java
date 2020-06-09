@@ -1,12 +1,13 @@
 package io.github.redstoneparadox.marionette.animation;
 
 import io.github.redstoneparadox.marionette.Marionette;
-import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
-import it.unimi.dsi.fastutil.doubles.DoubleList;
+import io.github.redstoneparadox.marionette.animation.sampling.LinearSampler;
+import io.github.redstoneparadox.marionette.animation.sampling.Sampler;
+import io.github.redstoneparadox.marionette.animation.sampling.SamplerFactory;
+import it.unimi.dsi.fastutil.floats.FloatConsumer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.DoubleConsumer;
 
 public final class Animation {
 	private final List<Track> tracks;
@@ -21,7 +22,7 @@ public final class Animation {
 		int length = 0;
 
 		for (Track track: tracks) {
-			length = Math.max(length, track.steps.size());
+			length = Math.max(length, track.length);
 		}
 
 		this.length = length;
@@ -33,7 +34,7 @@ public final class Animation {
 
 	public void step() {
 		for (Track track: tracks) {
-			track.to(tick);
+			track.seek(tick);
 		}
 
 		tick += 1;
@@ -48,62 +49,66 @@ public final class Animation {
 	}
 
 	private static class Track {
-		private final DoubleConsumer setter;
-		private final DoubleList steps;
+		private final FloatConsumer setter;
+		private final Sampler sampler;
+		private final int length;
 
-		Track(DoubleConsumer setter, DoubleList steps) {
+		private Track(FloatConsumer setter, Sampler sampler, int length) {
 			this.setter = setter;
-			this.steps = steps;
+			this.sampler = sampler;
+			this.length = length;
 		}
 
-		void to(int step) {
-			if (step < steps.size()) setter.accept(steps.getDouble(step));
+		void seek(float time) {
+			float value = time < length ? sampler.sample(time) : sampler.sample(length);
+			setter.accept(value);
 		}
 	}
 
 	public static final class Builder {
-		private DoubleList steps = new DoubleArrayList();
+		private List<KeyFrame> keyFrames = new ArrayList<>();
 		private final List<Track> tracks = new ArrayList<>();
-		private boolean creatingTrack = false;
+		private SamplerFactory factory = LinearSampler::new;
+		private int length = 0;
+		boolean creatingTrack = false;
 
-		private Builder() { }
+		public Builder linearSampler() {
+			factory = LinearSampler::new;
+			return this;
+		}
 
-		public Builder startTrack(double initialValue) {
+		public Builder startTrack(float initialValue) {
 			if (!creatingTrack) {
-				steps = new DoubleArrayList();
-				steps.add(initialValue);
+				keyFrames = new ArrayList<>();
+				keyFrames.add(new KeyFrame(0, initialValue));
 				creatingTrack = true;
-			}
-			else {
+			} else {
 				Marionette.LOGGER.error("Attempted to create new track before starting previous one.");
 			}
 
 			return this;
 		}
 
-		public Builder addKeyFrame(double to, int ticks) {
+		public Builder keyFrame(float value, int ticks) {
 			if (!creatingTrack) {
 				Marionette.LOGGER.error("Attempted to add key frame before starting track.");
 				return this;
 			}
 
-			double previous = steps.getDouble(steps.size() - 1);
-			double slope = (to - previous)/ticks;
-
-			for (int tick = 1; tick < ticks; tick += 1) {
-				steps.add((double)tick * slope + previous);
-			}
-
+			length += ticks;
+			keyFrames.add(new KeyFrame(length, value));
 			return this;
 		}
 
-		public Builder completeTrack(DoubleConsumer setter) {
+		public Builder completeTrack(FloatConsumer setter) {
 			if (!creatingTrack) {
 				Marionette.LOGGER.error("Attempted to complete track before starting one.");
 				return this;
 			}
-			tracks.add(new Track(setter, steps));
+
+			tracks.add(new Track(setter, factory.create(keyFrames), length));
 			creatingTrack = false;
+			length = 0;
 			return this;
 		}
 
@@ -111,4 +116,5 @@ public final class Animation {
 			return new Animation(tracks, repeat);
 		}
 	}
+
 }

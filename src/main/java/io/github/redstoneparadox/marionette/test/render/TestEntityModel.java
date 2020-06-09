@@ -20,15 +20,15 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 		part.setPivot(0, 16, 0);
 
 		spinAnimation = Animation.builder()
-				.startTrack(0.0)
-				.addKeyFrame(2*Math.PI, 200)
-				.addKeyFrame(4*Math.PI, 200)
-				.completeTrack(value -> part.yaw = (float) value)
-				.startTrack(0.0)
-				.addKeyFrame((Math.PI)/4, 100)
-				.addKeyFrame(-(Math.PI)/4, 200)
-				.addKeyFrame(0.0, 100)
-				.completeTrack(value -> part.pitch = (float) value)
+				.startTrack(0.0f)
+				.keyFrame((float) (2*Math.PI), 200)
+				.keyFrame((float) (4*Math.PI), 200)
+				.completeTrack(value -> part.yaw = value)
+				.startTrack(0.0f)
+				.keyFrame((float) ((Math.PI)/4), 100)
+				.keyFrame((float) (-(Math.PI)/4), 200)
+				.keyFrame(0.0f, 100)
+				.completeTrack(value -> part.pitch = value)
 				.build(true);
 	}
 
