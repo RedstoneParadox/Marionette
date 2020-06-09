@@ -3,12 +3,10 @@ package io.github.redstoneparadox.marionette.animation;
 import io.github.redstoneparadox.marionette.Marionette;
 import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
 import it.unimi.dsi.fastutil.doubles.DoubleList;
-import it.unimi.dsi.fastutil.doubles.DoubleLists;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.DoubleConsumer;
-import java.util.logging.LogManager;
 
 public final class Animation {
 	private final List<Track> tracks;

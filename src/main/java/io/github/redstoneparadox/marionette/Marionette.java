@@ -1,7 +1,6 @@
 package io.github.redstoneparadox.marionette;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
