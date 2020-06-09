@@ -19,7 +19,7 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 		part.addCuboid(-8, -8, -8, 16, 16, 16);
 		part.setPivot(0, 16, 0);
 
-		spinAnimation = Animation.builder()
+		spinAnimation = new Animation.Builder()
 				.startTrack(0.0f)
 				.keyFrame((float) (2*Math.PI), 200)
 				.keyFrame((float) (4*Math.PI), 200)
