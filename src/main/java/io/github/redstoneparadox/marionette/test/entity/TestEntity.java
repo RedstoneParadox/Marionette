@@ -52,6 +52,6 @@ public class TestEntity extends MobEntity {
 	}
 
 	public static DefaultAttributeContainer.Builder createTestEntityAttributes() {
-		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0D);
+		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 1.0);
 	}
 }

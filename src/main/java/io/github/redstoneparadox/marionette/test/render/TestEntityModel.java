@@ -16,13 +16,19 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 		textureHeight = 16;
 
 		part = new ExtendedModelPart(this);
-		part.addCuboid(-8, 8, -8, 16, 16, 16);
-
+		part.addCuboid(-8, -8, -8, 16, 16, 16);
+		part.setPivot(0, 16, 0);
 
 		spinAnimation = Animation.builder()
 				.startTrack(0.0)
-				.addKeyFrame(Math.PI, 100)
+				.addKeyFrame(2*Math.PI, 200)
+				.addKeyFrame(4*Math.PI, 200)
 				.completeTrack((value -> part.yaw = (float) value))
+				.startTrack(0.0)
+				.addKeyFrame((Math.PI)/4, 100)
+				.addKeyFrame(-(Math.PI)/4, 200)
+				.addKeyFrame(0.0, 100)
+				.completeTrack((value -> part.pitch = (float) value))
 				.build(true);
 	}
 

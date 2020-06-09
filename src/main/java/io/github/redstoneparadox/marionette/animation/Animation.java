@@ -86,10 +86,11 @@ public final class Animation {
 				Marionette.LOGGER.error("Attempted to add key frame before starting track.");
 				return this;
 			}
-			double slope = to/ticks;
-			double previous = steps.getDouble(steps.size() - 1);
 
-			for (int tick = 0; tick < ticks; tick += 1) {
+			double previous = steps.getDouble(steps.size() - 1);
+			double slope = (to - previous)/ticks;
+
+			for (int tick = 1; tick < ticks; tick += 1) {
 				steps.add((double)tick * slope + previous);
 			}
 
