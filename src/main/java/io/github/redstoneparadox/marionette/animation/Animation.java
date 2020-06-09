@@ -202,5 +202,4 @@ public final class Animation {
 			return animation;
 		}
 	}
-
 }
