@@ -6,7 +6,9 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 
 /**
- * A {@link ModelPart} with some additional properties.
+ * A {@link ModelPart} that can be scaled or have its
+ * tint color change. At the moment, changing the
+ * color doesn't do anything.
  */
 public class ExtendedModelPart extends ModelPart {
 	public float scaleX = 1.0f;
