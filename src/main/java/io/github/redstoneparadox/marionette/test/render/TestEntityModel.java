@@ -21,11 +21,16 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 		part.setPivot(0, 16, 0);
 
 		spinAnimation = new Animation.Builder()
+				.startTrack(0.0f)
+				.keyFrame((float) (2 * Math.PI), 100)
+				.completeTrack((t -> part.yaw = t))
+				/*
 				.startTrack((float) ((Math.PI)/4))
 				.keyFrame((float) (-(Math.PI)/4), 100)
 				.keyFrame((float) ((Math.PI)/4), 100)
 				.cubicSampler()
 				.completeTrack(value -> part.pitch = value)
+				 */
 				.build(this, true);
 
 		scalingAnimation = new Animation.Builder()
@@ -50,6 +55,7 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 
 	@Override
 	protected void update(TestEntity entity) {
+		/*
 		if (entity.spinning) {
 			spinAnimation.play();
 			scalingAnimation.pause();
@@ -58,5 +64,7 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 			spinAnimation.pause();
 			scalingAnimation.play();
 		}
+
+		 */
 	}
 }
