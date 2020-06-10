@@ -16,7 +16,7 @@ import java.util.List;
  * interpolate over float values. It is created using
  * {@link Animation.Builder}.
  */
-public final class Animation {
+public final class Animation extends AbstractAnimation {
 	private final List<Track> tracks;
 	private int tick = 0;
 	private final int length;
@@ -59,6 +59,7 @@ public final class Animation {
 		tick = 0;
 	}
 
+	@Override
 	public void step() {
 		if (playing) {
 			for (Track track: tracks) {

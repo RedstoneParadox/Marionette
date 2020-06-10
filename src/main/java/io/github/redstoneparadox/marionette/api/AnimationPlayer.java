@@ -1,13 +1,13 @@
 package io.github.redstoneparadox.marionette.api;
 
-import io.github.redstoneparadox.marionette.animation.Animation;
+import io.github.redstoneparadox.marionette.animation.AbstractAnimation;
 
 /**
  * Implementations of this interface are used to automatically
- * call {@link Animation#step()} instead of the end user
+ * call {@link AbstractAnimation#step()} instead of the end user
  * calling it manually.
  */
 public interface AnimationPlayer {
 
-	void addAnimation(Animation animation);
+	void addAnimation(AbstractAnimation animation);
 }
