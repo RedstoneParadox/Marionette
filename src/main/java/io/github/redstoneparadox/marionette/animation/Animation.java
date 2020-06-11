@@ -1,10 +1,7 @@
 package io.github.redstoneparadox.marionette.animation;
 
 import io.github.redstoneparadox.marionette.Marionette;
-import io.github.redstoneparadox.marionette.animation.sampling.CubicSampler;
-import io.github.redstoneparadox.marionette.animation.sampling.LinearSampler;
-import io.github.redstoneparadox.marionette.animation.sampling.Sampler;
-import io.github.redstoneparadox.marionette.animation.sampling.SamplerFactory;
+import io.github.redstoneparadox.marionette.animation.sampling.*;
 import io.github.redstoneparadox.marionette.api.AnimationPlayer;
 import it.unimi.dsi.fastutil.floats.FloatConsumer;
 
@@ -130,6 +127,19 @@ public final class Animation extends AbstractAnimation {
 		 */
 		public Builder cubicSampler() {
 			factory = CubicSampler::new;
+			return this;
+		}
+
+		/**
+		 * <p>Sets the sampler to {@link SineSampler}. Best for
+		 * when you need smoother transitions between keyframes
+		 * with less smoothing than the {@link CubicSampler}.
+		 * </p>
+		 *
+		 * @return The {@link Builder} for further modification.
+		 */
+		public Builder sineSampler() {
+			factory = SineSampler::new;
 			return this;
 		}
 

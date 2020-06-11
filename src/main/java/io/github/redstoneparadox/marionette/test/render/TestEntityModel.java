@@ -37,7 +37,7 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 				.startTrack(1.0f)
 				.keyFrame(4.0f, 200)
 				.keyFrame(1.0f, 200)
-				.cubicSampler()
+				.sineSampler()
 				.completeTrack((t -> {
 					part.scaleX = t;
 					part.scaleY = t;
@@ -45,7 +45,8 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 				}))
 				.build(this, true);
 
-		spinAnimation.play();
+		// spinAnimation.play();
+		scalingAnimation.play();
 	}
 
 	@Override
