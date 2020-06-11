@@ -55,16 +55,11 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 
 	@Override
 	protected void update(TestEntity entity) {
-		/*
-		if (entity.spinning) {
-			spinAnimation.play();
-			scalingAnimation.pause();
+		if (entity.detectsPlayer) {
+			spinAnimation.setSpeed(3.0f);
 		}
 		else {
-			spinAnimation.pause();
-			scalingAnimation.play();
+			spinAnimation.setSpeed(1.0f);
 		}
-
-		 */
 	}
 }

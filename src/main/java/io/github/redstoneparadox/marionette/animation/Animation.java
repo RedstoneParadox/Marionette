@@ -18,10 +18,11 @@ import java.util.List;
  */
 public final class Animation extends AbstractAnimation {
 	private final List<Track> tracks;
-	private int tick = 0;
+	private float tick = 0.0f;
 	private final int length;
 	private final boolean repeat;
 	private boolean playing = false;
+	private float speed = 1.0f;
 
 	public Animation(List<Track> tracks, boolean repeat) {
 		this.tracks = tracks;
@@ -56,7 +57,15 @@ public final class Animation extends AbstractAnimation {
 	 */
 	public void stop() {
 		playing = false;
-		tick = 0;
+		tick = 0.0f;
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+
+	public float getSpeed() {
+		return speed;
 	}
 
 	@Override
@@ -66,7 +75,7 @@ public final class Animation extends AbstractAnimation {
 				track.seek(tick);
 			}
 
-			tick += 1;
+			tick += speed;
 
 			if (repeat && tick >= length) {
 				tick = 0;
