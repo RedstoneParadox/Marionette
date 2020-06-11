@@ -3,6 +3,8 @@
 
 Marionette is a library that aims to make creating and animating custom entity models more approachable.
 
+Discord: https://discord.gg/3kAN8vC
+
 ## Including Marionette in your Project
 
 `build.gradle`:
