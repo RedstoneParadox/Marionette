@@ -15,7 +15,7 @@ import java.util.List;
  */
 public final class Animation extends AbstractAnimation {
 	private final List<Track> tracks;
-	private float tick = 0.0f;
+	private float time = 0.0f;
 	private final int length;
 	private final boolean repeat;
 	private boolean playing = false;
@@ -54,7 +54,7 @@ public final class Animation extends AbstractAnimation {
 	 */
 	public void stop() {
 		playing = false;
-		tick = 0.0f;
+		time = 0.0f;
 	}
 
 	public void setSpeed(float speed) {
@@ -65,17 +65,25 @@ public final class Animation extends AbstractAnimation {
 		return speed;
 	}
 
+	public void setTime(float time) {
+		this.time = time;
+	}
+
+	public float getTime() {
+		return time;
+	}
+
 	@Override
 	public void step() {
 		if (playing) {
 			for (Track track: tracks) {
-				track.seek(tick);
+				track.seek(time);
 			}
 
-			tick += speed;
+			time += speed;
 
-			if (repeat && tick >= length) {
-				tick = 0;
+			if (repeat && time >= length) {
+				time = 0;
 			}
 		}
 	}
