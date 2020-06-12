@@ -38,6 +38,7 @@ public final class Animation extends AbstractAnimation {
 	 * Starts the animation, resuming where it
 	 * was if it was paused.
 	 */
+	@Override
 	public void play() {
 		playing = true;
 	}
@@ -45,6 +46,7 @@ public final class Animation extends AbstractAnimation {
 	/**
 	 * Paused the animation.
 	 */
+	@Override
 	public void pause() {
 		playing = false;
 	}
@@ -52,6 +54,7 @@ public final class Animation extends AbstractAnimation {
 	/**
 	 * Sends the animation back to the start.
 	 */
+	@Override
 	public void stop() {
 		playing = false;
 		time = 0.0f;
