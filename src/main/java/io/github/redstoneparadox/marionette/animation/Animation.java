@@ -19,7 +19,7 @@ public final class Animation extends AbstractAnimation {
 	private final int length;
 	private final boolean repeat;
 	private boolean playing = false;
-	private boolean finished = false;
+	private boolean finished = true;
 	private float speed = 1.0f;
 
 	public Animation(List<Track> tracks, boolean repeat) {
