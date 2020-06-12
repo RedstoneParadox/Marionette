@@ -8,33 +8,33 @@ import java.util.Arrays;
  * <p>Used for dynamically setting up animations between
  * two values. While {@link Animation} can be used in
  * this matter, it is designed for more complex animations
- * that are setup ahead of time.</p>
+ * that are set up ahead of time.</p>
  *
  * @param <T> The type that is being animated.
  */
 public class TweenAnimation<T> extends AbstractAnimation<T> {
 	private final SamplerFactory factory;
-	private final SetterFunction<T> setterFunction;
+	private final Setter<T> setter;
 	private Sampler sampler = null;
 	private int time = 0;
 	private int length = 0;
 	private boolean playing = false;
 	private boolean finished = true;
 
-	private TweenAnimation(SamplerFactory factory, SetterFunction<T> setterFunction) {
+	private TweenAnimation(SamplerFactory factory, Setter<T> setter) {
 		this.factory = factory;
-		this.setterFunction = setterFunction;
+		this.setter = setter;
 	}
 
-	public static <T> TweenAnimation<T> linear(SetterFunction<T> setter) {
+	public static <T> TweenAnimation<T> linear(Setter<T> setter) {
 		return new TweenAnimation<>(LinearSampler::new, setter);
 	}
 
-	public static <T> TweenAnimation<T> cubic(SetterFunction<T> setter) {
+	public static <T> TweenAnimation<T> cubic(Setter<T> setter) {
 		return new TweenAnimation<>(CubicSampler::new, setter);
 	}
 
-	public static <T> TweenAnimation<T> sine(SetterFunction<T> setter) {
+	public static <T> TweenAnimation<T> sine(Setter<T> setter) {
 		return new TweenAnimation<>(SineSampler::new, setter);
 	}
 
@@ -53,7 +53,7 @@ public class TweenAnimation<T> extends AbstractAnimation<T> {
 	public void step(T t) {
 		if (playing) {
 			float value = sampler.sample(time);
-			setterFunction.set(t, value);
+			setter.set(t, value);
 			time += 1;
 
 			if (time >= length) {

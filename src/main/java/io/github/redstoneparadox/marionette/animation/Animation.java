@@ -95,12 +95,12 @@ public final class Animation<T> extends AbstractAnimation<T> {
 	}
 
 	private static final class Track<T> {
-		private final SetterFunction<T> setter;
+		private final Setter<T> setter;
 		private final Sampler sampler;
 		private final int length;
 		private final int startTime;
 
-		public Track(SetterFunction<T> setter, Sampler sampler, int length, int startTime) {
+		public Track(Setter<T> setter, Sampler sampler, int length, int startTime) {
 			this.setter = setter;
 			this.sampler = sampler;
 			this.length = length;
@@ -222,7 +222,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 			return this;
 		}
 
-		public Builder<T> completeTrack(SetterFunction<T> setter) {
+		public Builder<T> completeTrack(Setter<T> setter) {
 			if (!creatingTrack) {
 				Marionette.LOGGER.error("Attempted to complete track before starting one.");
 				return this;
