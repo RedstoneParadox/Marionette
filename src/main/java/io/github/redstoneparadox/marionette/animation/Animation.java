@@ -19,6 +19,7 @@ public final class Animation extends AbstractAnimation {
 	private final int length;
 	private final boolean repeat;
 	private boolean playing = false;
+	private boolean finished = false;
 	private float speed = 1.0f;
 
 	public Animation(List<Track> tracks, boolean repeat) {
@@ -40,6 +41,7 @@ public final class Animation extends AbstractAnimation {
 	 */
 	@Override
 	public void play() {
+		finished = false;
 		playing = true;
 	}
 
@@ -57,7 +59,13 @@ public final class Animation extends AbstractAnimation {
 	@Override
 	public void stop() {
 		playing = false;
+		finished = true;
 		time = 0.0f;
+	}
+
+	@Override
+	public boolean isFinished() {
+		return finished;
 	}
 
 	public void setSpeed(float speed) {
@@ -85,8 +93,13 @@ public final class Animation extends AbstractAnimation {
 
 			time += speed;
 
-			if (repeat && time >= length) {
-				time = 0;
+			if (time >= length) {
+				if (repeat) {
+					time = 0;
+				}
+				else {
+					stop();
+				}
 			}
 		}
 	}

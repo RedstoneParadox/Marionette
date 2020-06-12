@@ -8,4 +8,6 @@ public abstract class AbstractAnimation {
 	public abstract void pause();
 
 	public abstract void stop();
+
+	public abstract boolean isFinished();
 }
