@@ -53,7 +53,7 @@ public class TestEntity extends MobEntity {
 		super.tick();
 		detectsPlayer = false;
 		for (PlayerEntity player: world.getPlayers()) {
-			if (player.getPos().distanceTo(getPos()) < 10) {
+			if (player.getPos().distanceTo(getPos()) < 4) {
 				detectsPlayer = true;
 				break;
 			}

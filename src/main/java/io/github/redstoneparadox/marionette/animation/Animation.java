@@ -28,7 +28,7 @@ public final class Animation extends AbstractAnimation {
 		int length = 0;
 
 		for (Track track: tracks) {
-			length = Math.max(length, track.length);
+			length = Math.max(length, (track.length + track.startTime));
 		}
 
 		this.length = length;
@@ -92,16 +92,20 @@ public final class Animation extends AbstractAnimation {
 		private final FloatConsumer setter;
 		private final Sampler sampler;
 		private final int length;
+		private final int startTime;
 
-		private Track(FloatConsumer setter, Sampler sampler, int length) {
+		private Track(FloatConsumer setter, Sampler sampler, int length, int startTime) {
 			this.setter = setter;
 			this.sampler = sampler;
 			this.length = length;
+			this.startTime = startTime;
 		}
 
 		void seek(float time) {
-			float value = time < length ? sampler.sample(time) : sampler.sample(length);
-			setter.accept(value);
+			if (time >= startTime) {
+				float value = time < length ? sampler.sample(time - startTime) : sampler.sample(length - startTime);
+				setter.accept(value);
+			}
 		}
 	}
 
@@ -110,6 +114,7 @@ public final class Animation extends AbstractAnimation {
 		private final List<Track> tracks = new ArrayList<>();
 		private SamplerFactory factory = LinearSampler::new;
 		private int length = 0;
+		private int startTime = 0;
 		boolean creatingTrack = false;
 
 		/**
@@ -162,10 +167,26 @@ public final class Animation extends AbstractAnimation {
 		 * @return The {@link Builder} for further modification.
 		 */
 		public Builder startTrack(float initialValue) {
+			return startTrack(initialValue, 0);
+		}
+
+		/**
+		 * <p>Starts a new track. A track interpolates over
+		 * a series of keyframes using sampling to produce
+		 * a value for a given tick. Must be called before
+		 * calling {@link Builder#keyFrame(float, int)} or
+		 * {@link Builder#completeTrack(FloatConsumer)}</p>
+		 *
+		 * @param initialValue The initial value for this track.
+		 * @param startTime The time this track should start at.
+		 * @return The {@link Builder} for further modification.
+		 */
+		public Builder startTrack(float initialValue, int startTime) {
 			if (!creatingTrack) {
-				keyFrames = new ArrayList<>();
-				keyFrames.add(new KeyFrame(0, initialValue));
-				creatingTrack = true;
+				this.keyFrames = new ArrayList<>();
+				this.keyFrames.add(new KeyFrame(0, initialValue));
+				this.creatingTrack = true;
+				this.startTime = startTime;
 			} else {
 				Marionette.LOGGER.error("Attempted to create new track before completing the previous one.");
 			}
@@ -190,8 +211,8 @@ public final class Animation extends AbstractAnimation {
 				return this;
 			}
 
-			length += ticks;
-			keyFrames.add(new KeyFrame(length, value));
+			this.length += ticks;
+			this.keyFrames.add(new KeyFrame(length, value));
 			return this;
 		}
 
@@ -210,9 +231,9 @@ public final class Animation extends AbstractAnimation {
 				return this;
 			}
 
-			tracks.add(new Track(setter, factory.create(keyFrames), length));
-			creatingTrack = false;
-			length = 0;
+			this.tracks.add(new Track(setter, factory.create(keyFrames), length + startTime, startTime));
+			this.creatingTrack = false;
+			this.length = 0;
 			return this;
 		}
 
@@ -225,7 +246,7 @@ public final class Animation extends AbstractAnimation {
 		 * @return The {@link Animation}
 		 */
 		public Animation build(AnimationPlayer animationPlayer, boolean repeat) {
-			Animation animation = new Animation(tracks, repeat);
+			Animation animation = new Animation(this.tracks, repeat);
 			animationPlayer.addAnimation(animation);
 			return animation;
 		}
