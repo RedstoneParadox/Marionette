@@ -1,7 +1,7 @@
 package io.github.redstoneparadox.marionette.render.block;
 
 import io.github.redstoneparadox.marionette.animation.AbstractAnimation;
-import io.github.redstoneparadox.marionette.api.AnimationPlayer;
+import io.github.redstoneparadox.marionette.animation.AnimationPlayer;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;

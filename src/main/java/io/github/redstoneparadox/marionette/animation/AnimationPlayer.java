@@ -1,4 +1,4 @@
-package io.github.redstoneparadox.marionette.api;
+package io.github.redstoneparadox.marionette.animation;
 
 import io.github.redstoneparadox.marionette.animation.AbstractAnimation;
 

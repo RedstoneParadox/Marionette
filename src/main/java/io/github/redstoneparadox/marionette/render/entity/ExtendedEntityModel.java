@@ -1,9 +1,7 @@
 package io.github.redstoneparadox.marionette.render.entity;
 
 import io.github.redstoneparadox.marionette.animation.AbstractAnimation;
-import io.github.redstoneparadox.marionette.animation.Animation;
-import io.github.redstoneparadox.marionette.api.AnimationPlayer;
-import net.minecraft.client.model.ModelPart;
+import io.github.redstoneparadox.marionette.animation.AnimationPlayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
