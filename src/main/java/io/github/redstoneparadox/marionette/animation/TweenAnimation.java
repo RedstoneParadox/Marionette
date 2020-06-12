@@ -14,27 +14,27 @@ import java.util.Arrays;
  */
 public class TweenAnimation<T> extends AbstractAnimation<T> {
 	private final SamplerFactory factory;
-	private final Setter<T> setter;
+	private final AnimationSetter<T> setter;
 	private Sampler sampler = null;
 	private int time = 0;
 	private int length = 0;
 	private boolean playing = false;
 	private boolean finished = true;
 
-	private TweenAnimation(SamplerFactory factory, Setter<T> setter) {
+	private TweenAnimation(SamplerFactory factory, AnimationSetter<T> setter) {
 		this.factory = factory;
 		this.setter = setter;
 	}
 
-	public static <T> TweenAnimation<T> linear(Setter<T> setter) {
+	public static <T> TweenAnimation<T> linear(AnimationSetter<T> setter) {
 		return new TweenAnimation<>(LinearSampler::new, setter);
 	}
 
-	public static <T> TweenAnimation<T> cubic(Setter<T> setter) {
+	public static <T> TweenAnimation<T> cubic(AnimationSetter<T> setter) {
 		return new TweenAnimation<>(CubicSampler::new, setter);
 	}
 
-	public static <T> TweenAnimation<T> sine(Setter<T> setter) {
+	public static <T> TweenAnimation<T> sine(AnimationSetter<T> setter) {
 		return new TweenAnimation<>(SineSampler::new, setter);
 	}
 

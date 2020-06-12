@@ -95,12 +95,12 @@ public final class Animation<T> extends AbstractAnimation<T> {
 	}
 
 	private static final class Track<T> {
-		private final Setter<T> setter;
+		private final AnimationSetter<T> setter;
 		private final Sampler sampler;
 		private final int length;
 		private final int startTime;
 
-		public Track(Setter<T> setter, Sampler sampler, int length, int startTime) {
+		public Track(AnimationSetter<T> setter, Sampler sampler, int length, int startTime) {
 			this.setter = setter;
 			this.sampler = sampler;
 			this.length = length;
@@ -181,7 +181,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 		 * a series of keyframes using sampling to produce
 		 * a value for a given tick. Must be called before
 		 * calling {@link Animation.Builder#keyFrame(float, int)} or
-		 * {@link Animation.Builder#completeTrack(FloatConsumer)}</p>
+		 * {@link Animation.Builder#completeTrack(AnimationSetter)}</p>
 		 *
 		 * @param initialValue The initial value for this track.
 		 * @param startTime The time this track should start at.
@@ -204,7 +204,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 		 * <p>Adds a new keyframe to the current track. May be called
 		 * any number of times after calling
 		 * {@link Animation.Builder#startTrack(float)} and before calling
-		 * {@link Animation.Builder#completeTrack(FloatConsumer)}.</p>
+		 * {@link Animation.Builder#completeTrack(AnimationSetter)}.</p>
 		 *
 		 * @param value The value to interpolate to for this keyframe
 		 * @param ticks The time in ticks between this keyframe and the
@@ -222,7 +222,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 			return this;
 		}
 
-		public Builder<T> completeTrack(Setter<T> setter) {
+		public Builder<T> completeTrack(AnimationSetter<T> setter) {
 			if (!creatingTrack) {
 				Marionette.LOGGER.error("Attempted to complete track before starting one.");
 				return this;
