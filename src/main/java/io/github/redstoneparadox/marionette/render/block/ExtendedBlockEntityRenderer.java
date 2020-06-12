@@ -11,7 +11,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExtendedBlockEntityRenderer<T extends BlockEntity> extends BlockEntityRenderer<T> implements AnimationPlayer {
+public abstract class ExtendedBlockEntityRenderer<T extends BlockEntity> extends BlockEntityRenderer<T> implements AnimationPlayer {
 	private final List<AbstractAnimation> animations = new ArrayList<>();
 
 	public ExtendedBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
@@ -20,13 +20,31 @@ public class ExtendedBlockEntityRenderer<T extends BlockEntity> extends BlockEnt
 
 	@Override
 	public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-		for (AbstractAnimation animation: animations) {
-			animation.step();
-		}
+		update(entity);
+		animations.forEach(AbstractAnimation::step);
+	}
+
+	protected void update(T blockEntity) {
+
 	}
 
 	@Override
 	public void addAnimation(AbstractAnimation animation) {
 		animations.add(animation);
+	}
+
+	@Override
+	public void playAll() {
+		animations.forEach(AbstractAnimation::play);
+	}
+
+	@Override
+	public void pauseAll() {
+		animations.forEach(AbstractAnimation::pause);
+	}
+
+	@Override
+	public void stopAll() {
+		animations.forEach(AbstractAnimation::stop);
 	}
 }

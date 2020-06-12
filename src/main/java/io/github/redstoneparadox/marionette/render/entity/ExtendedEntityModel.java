@@ -31,9 +31,7 @@ public abstract class ExtendedEntityModel<T extends Entity> extends EntityModel<
 	@Override
 	public void animateModel(T entity, float limbAngle, float limbDistance, float tickDelta) {
 		update(entity);
-		for (AbstractAnimation animation: animations) {
-			animation.step();
-		}
+		animations.forEach(AbstractAnimation::step);
 	}
 
 	protected void update(T entity) {
@@ -43,5 +41,20 @@ public abstract class ExtendedEntityModel<T extends Entity> extends EntityModel<
 	@Override
 	public void addAnimation(AbstractAnimation animation) {
 		animations.add(animation);
+	}
+
+	@Override
+	public void playAll() {
+		animations.forEach(AbstractAnimation::play);
+	}
+
+	@Override
+	public void pauseAll() {
+		animations.forEach(AbstractAnimation::pause);
+	}
+
+	@Override
+	public void stopAll() {
+		animations.forEach(AbstractAnimation::stop);
 	}
 }
