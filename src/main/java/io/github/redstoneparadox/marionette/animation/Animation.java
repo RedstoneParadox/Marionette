@@ -12,7 +12,7 @@ import java.util.List;
  * interpolate over float values. It is created using
  * {@link Animation.Builder}.
  *
- * @param <T> The type that this animation is animating
+ * @param <T> The type that is being animated.
  */
 public final class Animation<T> extends AbstractAnimation<T> {
 	private final List<Track<T>> tracks;

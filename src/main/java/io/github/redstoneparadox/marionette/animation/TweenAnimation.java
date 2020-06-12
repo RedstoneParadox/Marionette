@@ -4,6 +4,14 @@ import io.github.redstoneparadox.marionette.animation.sampling.*;
 
 import java.util.Arrays;
 
+/**
+ * <p>Used for dynamically setting up animations between
+ * two values. While {@link Animation} can be used in
+ * this matter, it is designed for more complex animations
+ * that are setup ahead of time.</p>
+ *
+ * @param <T> The type that is being animated.
+ */
 public class TweenAnimation<T> extends AbstractAnimation<T> {
 	private final SamplerFactory factory;
 	private final SetterFunction<T> setterFunction;
