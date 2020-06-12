@@ -1,4 +1,6 @@
-package io.github.redstoneparadox.marionette.animation;
+package io.github.redstoneparadox.marionette.animation.statemachine;
+
+import io.github.redstoneparadox.marionette.animation.AbstractAnimation;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,6 +18,4 @@ public final class AnimationState {
 	public void linkState(AnimationState state) {
 		states.add(state);
 	}
-
-	
 }
