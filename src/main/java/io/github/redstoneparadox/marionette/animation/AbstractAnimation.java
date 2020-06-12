@@ -1,7 +1,7 @@
 package io.github.redstoneparadox.marionette.animation;
 
-public abstract class AbstractAnimation {
-	public abstract void step();
+public abstract class AbstractAnimation<T> {
+	public abstract void step(T t);
 
 	public abstract void play();
 

@@ -1,34 +1,22 @@
 package io.github.redstoneparadox.marionette.animation;
 
-import io.github.redstoneparadox.marionette.animation.sampling.*;
-import it.unimi.dsi.fastutil.floats.FloatConsumer;
+import io.github.redstoneparadox.marionette.animation.sampling.Sampler;
+import io.github.redstoneparadox.marionette.animation.sampling.SamplerFactory;
 
 import java.util.Arrays;
 
-public final class TweenAnimation extends AbstractAnimation {
+public class TweenAnimation<T> extends AbstractAnimation<T> {
 	private final SamplerFactory factory;
-	private final FloatConsumer setter;
+	private final SetterFunction<T> setterFunction;
 	private Sampler sampler = null;
 	private int time = 0;
 	private int length = 0;
 	private boolean playing = false;
 	private boolean finished = true;
 
-	public TweenAnimation(SamplerFactory factory, FloatConsumer setter) {
+	public TweenAnimation(SamplerFactory factory, SetterFunction<T> setterFunction) {
 		this.factory = factory;
-		this.setter = setter;
-	}
-
-	public static TweenAnimation linear(FloatConsumer setter) {
-		return new TweenAnimation(LinearSampler::new, setter);
-	}
-
-	public static TweenAnimation cubic(FloatConsumer setter) {
-		return new TweenAnimation(CubicSampler::new, setter);
-	}
-
-	public static TweenAnimation sine(FloatConsumer consumer) {
-		return new TweenAnimation(SineSampler::new, consumer);
+		this.setterFunction = setterFunction;
 	}
 
 	public void tween(float from, float to, int ticks) {
@@ -43,11 +31,10 @@ public final class TweenAnimation extends AbstractAnimation {
 	}
 
 	@Override
-	public void step() {
+	public void step(T t) {
 		if (playing) {
 			float value = sampler.sample(time);
-			setter.accept(value);
-
+			setterFunction.set(t, value);
 			time += 1;
 
 			if (time >= length) {
@@ -58,7 +45,6 @@ public final class TweenAnimation extends AbstractAnimation {
 
 	@Override
 	public void play() {
-		finished = false;
 		playing = true;
 	}
 
@@ -69,9 +55,10 @@ public final class TweenAnimation extends AbstractAnimation {
 
 	@Override
 	public void stop() {
-		playing = false;
 		finished = true;
+		playing = false;
 		time = 0;
+		length = 0;
 	}
 
 	@Override
