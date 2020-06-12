@@ -1,16 +1,18 @@
 package io.github.redstoneparadox.marionette.test.render;
 
-import io.github.redstoneparadox.marionette.animation.Animation;
+import io.github.redstoneparadox.marionette.animation.TweenAnimation;
 import io.github.redstoneparadox.marionette.render.entity.ExtendedEntityModel;
 import io.github.redstoneparadox.marionette.model.ExtendedModelPart;
 import io.github.redstoneparadox.marionette.test.entity.TestEntity;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 
+import java.util.Random;
+
 public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 	public final ExtendedModelPart part;
-	public final Animation spinAnimation;
-	public final Animation scalingAnimation;
+	public final TweenAnimation scalingTween;
+	private final Random random = new Random();
 
 	public TestEntityModel() {
 		textureWidth = 16;
@@ -20,33 +22,13 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 		part.addCuboid(-8, -8, -8, 16, 16, 16);
 		part.setPivot(0, 16, 0);
 
-		spinAnimation = new Animation.Builder()
-				.startTrack(0.0f, 100)
-				.keyFrame((float) Math.toRadians(360.0), 100)
-				.completeTrack(t -> part.yaw = t)
-				/*
-				.startTrack((float) ((Math.PI)/4))
-				.keyFrame((float) (-(Math.PI)/4), 100)
-				.keyFrame((float) ((Math.PI)/4), 100)
-				.cubicSampler()
-				.completeTrack(value -> part.pitch = value)
-				 */
-				.build(this, true);
+		scalingTween = TweenAnimation.cubic(t -> {
+			part.scaleX = t;
+			part.scaleY = t;
+			part.scaleZ = t;
+		});
 
-		scalingAnimation = new Animation.Builder()
-				.startTrack(1.0f)
-				.keyFrame(4.0f, 200)
-				.keyFrame(1.0f, 200)
-				.sineSampler()
-				.completeTrack((t -> {
-					part.scaleX = t;
-					part.scaleY = t;
-					part.scaleZ = t;
-				}))
-				.build(this, true);
-
-		spinAnimation.play();
-		// scalingAnimation.play();
+		addAnimation(scalingTween);
 	}
 
 	@Override
@@ -56,11 +38,10 @@ public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 
 	@Override
 	protected void update(TestEntity entity) {
-		if (entity.detectsPlayer) {
-			spinAnimation.setSpeed(1.0f);
-		}
-		else {
-			spinAnimation.setSpeed(2.0f);
+		if (scalingTween.isFinished()) {
+			int nextScale = random.nextInt(4) + 1;
+			while (nextScale == part.scaleX) nextScale = random.nextInt(4) + 1;
+			scalingTween.tween(part.scaleX, nextScale, 100);
 		}
 	}
 }
