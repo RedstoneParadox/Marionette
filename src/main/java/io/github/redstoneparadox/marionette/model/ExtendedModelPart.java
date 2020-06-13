@@ -38,7 +38,7 @@ public class ExtendedModelPart extends ModelPart {
 				matrices.push();
 				rotate(matrices);
 				matrices.scale(scaleX, scaleY, scaleZ);
-				renderCuboids(matrices.peek(), vertices, light, overlay, this.red, this.blue, this.green, this.alpha);
+				renderCuboids(matrices.peek(), vertices, light, overlay, this.red, this.green, this.blue, this.alpha);
 
 				for (ModelPart child: children) {
 					if (child instanceof ExtendedModelPart) {
