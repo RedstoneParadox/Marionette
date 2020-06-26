@@ -1,6 +1,5 @@
 package io.github.redstoneparadox.marionette.animation.sampling;
 
-import io.github.redstoneparadox.marionette.animation.KeyFrame;
 import net.minecraft.util.Pair;
 import org.jetbrains.annotations.ApiStatus;
 

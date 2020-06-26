@@ -1,7 +1,5 @@
 package io.github.redstoneparadox.marionette.animation.sampling;
 
-import io.github.redstoneparadox.marionette.animation.KeyFrame;
-
 import java.util.List;
 
 /**

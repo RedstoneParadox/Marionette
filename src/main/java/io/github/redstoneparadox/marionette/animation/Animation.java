@@ -2,7 +2,6 @@ package io.github.redstoneparadox.marionette.animation;
 
 import io.github.redstoneparadox.marionette.Marionette;
 import io.github.redstoneparadox.marionette.animation.sampling.*;
-import it.unimi.dsi.fastutil.floats.FloatConsumer;
 
 import java.util.ArrayList;
 import java.util.List;

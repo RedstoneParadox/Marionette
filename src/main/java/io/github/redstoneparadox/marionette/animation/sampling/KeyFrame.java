@@ -1,4 +1,4 @@
-package io.github.redstoneparadox.marionette.animation;
+package io.github.redstoneparadox.marionette.animation.sampling;
 
 public final class KeyFrame {
 	final int time;
