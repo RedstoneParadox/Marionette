@@ -21,7 +21,7 @@ public class TweenAnimation<T> extends AbstractAnimation<T> {
 	private boolean playing = false;
 	private boolean finished = true;
 
-	private TweenAnimation(SamplerFactory factory, AnimatedFloatSetter<T> setter) {
+	public TweenAnimation(SamplerFactory factory, AnimatedFloatSetter<T> setter) {
 		this.factory = factory;
 		this.setter = setter;
 	}
