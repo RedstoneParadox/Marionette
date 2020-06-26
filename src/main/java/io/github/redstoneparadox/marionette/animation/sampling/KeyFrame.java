@@ -1,6 +1,5 @@
 package io.github.redstoneparadox.marionette.animation.sampling;
 
-import net.minecraft.client.util.math.Vector3f;
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
