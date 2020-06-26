@@ -181,7 +181,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 		 * a series of keyframes using sampling to produce
 		 * a value for a given tick. Must be called before
 		 * calling {@link Animation.Builder#keyFrame(float, int)} or
-		 * {@link Animation.Builder#completeTrack(FloatConsumer)}</p>
+		 * {@link Animation.Builder#completeTrack(AnimationSetter)}</p>
 		 *
 		 * @param initialValue The initial value for this track.
 		 * @return The {@link Animation.Builder} for further modification.
