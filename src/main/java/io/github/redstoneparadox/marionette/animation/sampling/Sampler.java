@@ -13,9 +13,9 @@ import java.util.List;
  * {@link SineSampler} for examples.
  */
 public abstract class Sampler {
-	private final List<KeyFrame> keyFrames;
+	private final List<KeyFrame.FloatKeyFrame> keyFrames;
 
-	protected Sampler(List<KeyFrame> keyFrames) {
+	protected Sampler(List<KeyFrame.FloatKeyFrame> keyFrames) {
 		this.keyFrames = keyFrames;
 	}
 
@@ -36,9 +36,9 @@ public abstract class Sampler {
 			return keyFrames.get(0).getValue();
 		}
 
-		Pair<KeyFrame, KeyFrame> pair = getFrames(time);
-		KeyFrame first = pair.getLeft();
-		KeyFrame second = pair.getRight();
+		Pair<KeyFrame.FloatKeyFrame, KeyFrame.FloatKeyFrame> pair = getFrames(time);
+		KeyFrame.FloatKeyFrame first = pair.getLeft();
+		KeyFrame.FloatKeyFrame second = pair.getRight();
 
 		float totalTime = second.getTime() - first.getTime();
 		float deltaTime = time - first.getTime();
@@ -46,7 +46,7 @@ public abstract class Sampler {
 		return sample(totalTime, deltaTime, first.getValue(), second.getValue());
 	}
 
-	private Pair<KeyFrame, KeyFrame> getFrames(float time) {
+	private Pair<KeyFrame.FloatKeyFrame, KeyFrame.FloatKeyFrame> getFrames(float time) {
 		int frameIndex = 0;
 
 

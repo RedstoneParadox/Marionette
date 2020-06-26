@@ -41,8 +41,8 @@ public class TweenAnimation<T> extends AbstractAnimation<T> {
 	public void tween(float from, float to, int ticks) {
 		length = ticks;
 
-		KeyFrame first = new KeyFrame(0, from);
-		KeyFrame second = new KeyFrame(ticks, to);
+		KeyFrame.FloatKeyFrame first = new KeyFrame.FloatKeyFrame(0, from);
+		KeyFrame.FloatKeyFrame second = new KeyFrame.FloatKeyFrame(ticks, to);
 
 		sampler = factory.create(Arrays.asList(first, second));
 		finished = false;

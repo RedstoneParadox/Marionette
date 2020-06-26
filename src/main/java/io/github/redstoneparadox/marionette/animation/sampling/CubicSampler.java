@@ -6,7 +6,7 @@ import java.util.List;
  * Sampling using a cubic-piecewise function.
  */
 public class CubicSampler extends Sampler {
-	public CubicSampler(List<KeyFrame> keyFrames) {
+	public CubicSampler(List<KeyFrame.FloatKeyFrame> keyFrames) {
 		super(keyFrames);
 	}
 

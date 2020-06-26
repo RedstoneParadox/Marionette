@@ -6,7 +6,7 @@ import java.util.List;
  * Sampling using a sine function.
  */
 public class SineSampler extends Sampler {
-	public SineSampler(List<KeyFrame> keyFrames) {
+	public SineSampler(List<KeyFrame.FloatKeyFrame> keyFrames) {
 		super(keyFrames);
 	}
 
