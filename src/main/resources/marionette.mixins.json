@@ -4,8 +4,10 @@
   "package": "io.github.redstoneparadox.marionette.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "MixinEntity"
   ],
   "client": [
+    "MixinEntityModel"
   ],
   "injectors": {
     "defaultRequire": 1
