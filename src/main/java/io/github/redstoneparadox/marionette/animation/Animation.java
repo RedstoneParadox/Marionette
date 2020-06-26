@@ -163,6 +163,19 @@ public final class Animation<T> extends AbstractAnimation<T> {
 		}
 
 		/**
+		 * <p>Sets the track to use a custom implementation
+		 * of {@link Sampler}.</p>
+		 *
+		 * @param factory A factory function which supplies the
+		 *                sampler.
+		 * @return The {@link Animation.Builder} for further modification.
+		 */
+		public Builder<T> customSampler(SamplerFactory factory) {
+			this.factory = factory;
+			return this;
+		}
+
+		/**
 		 * <p>Starts a new track. A track interpolates over
 		 * a series of keyframes using sampling to produce
 		 * a value for a given tick. Must be called before
