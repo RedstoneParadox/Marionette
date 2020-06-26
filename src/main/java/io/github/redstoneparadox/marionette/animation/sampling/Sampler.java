@@ -7,7 +7,11 @@ import org.jetbrains.annotations.ApiStatus;
 import java.util.List;
 
 /**
- * Used to interpolate over a series of key frames.
+ * A sampler implements a function used to interpolate
+ * between two given keyframes in a series of keyframes.
+ *
+ * See {@link LinearSampler}, {@link CubicSampler}, and
+ * {@link SineSampler} for examples.
  */
 public abstract class Sampler {
 	private final List<KeyFrame> keyFrames;
@@ -17,7 +21,7 @@ public abstract class Sampler {
 	}
 
 	@ApiStatus.Internal
-	public float sample(float time) {
+	public final float sample(float time) {
 		if (time <= 0.0f) {
 			return keyFrames.get(0).getValue();
 		}
