@@ -169,6 +169,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 		 * @param factory A factory function which supplies the
 		 *                sampler.
 		 * @return The {@link Animation.Builder} for further modification.
+		 * @see SamplerFactory
 		 */
 		public Builder<T> customSampler(SamplerFactory factory) {
 			this.factory = factory;
