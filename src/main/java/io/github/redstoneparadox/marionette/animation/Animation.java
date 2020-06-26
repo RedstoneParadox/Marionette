@@ -2,6 +2,7 @@ package io.github.redstoneparadox.marionette.animation;
 
 import io.github.redstoneparadox.marionette.Marionette;
 import io.github.redstoneparadox.marionette.animation.sampling.*;
+import io.github.redstoneparadox.marionette.animation.setter.AnimatedFloatSetter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,12 +95,12 @@ public final class Animation<T> extends AbstractAnimation<T> {
 	}
 
 	private static final class Track<T> {
-		private final AnimationSetter<T> setter;
+		private final AnimatedFloatSetter<T> setter;
 		private final Sampler sampler;
 		private final int length;
 		private final int startTime;
 
-		public Track(AnimationSetter<T> setter, Sampler sampler, int length, int startTime) {
+		public Track(AnimatedFloatSetter<T> setter, Sampler sampler, int length, int startTime) {
 			this.setter = setter;
 			this.sampler = sampler;
 			this.length = length;
@@ -180,7 +181,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 		 * a series of keyframes using sampling to produce
 		 * a value for a given tick. Must be called before
 		 * calling {@link Animation.Builder#keyFrame(float, int)} or
-		 * {@link Animation.Builder#completeTrack(AnimationSetter)}</p>
+		 * {@link Animation.Builder#completeTrack(AnimatedFloatSetter)}</p>
 		 *
 		 * @param initialValue The initial value for this track.
 		 * @return The {@link Animation.Builder} for further modification.
@@ -194,7 +195,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 		 * a series of keyframes using sampling to produce
 		 * a value for a given tick. Must be called before
 		 * calling {@link Animation.Builder#keyFrame(float, int)} or
-		 * {@link Animation.Builder#completeTrack(AnimationSetter)}</p>
+		 * {@link Animation.Builder#completeTrack(AnimatedFloatSetter)}</p>
 		 *
 		 * @param initialValue The initial value for this track.
 		 * @param startTime The time this track should start at.
@@ -217,7 +218,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 		 * <p>Adds a new keyframe to the current track. May be called
 		 * any number of times after calling
 		 * {@link Animation.Builder#startTrack(float)} and before calling
-		 * {@link Animation.Builder#completeTrack(AnimationSetter)}.</p>
+		 * {@link Animation.Builder#completeTrack(AnimatedFloatSetter)}.</p>
 		 *
 		 * @param value The value to interpolate to for this keyframe
 		 * @param ticks The time in ticks between this keyframe and the
@@ -235,7 +236,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 			return this;
 		}
 
-		public Builder<T> completeTrack(AnimationSetter<T> setter) {
+		public Builder<T> completeTrack(AnimatedFloatSetter<T> setter) {
 			if (!creatingTrack) {
 				Marionette.LOGGER.error("Attempted to complete track before starting one.");
 				return this;

@@ -1,6 +1,7 @@
 package io.github.redstoneparadox.marionette.animation;
 
 import io.github.redstoneparadox.marionette.animation.sampling.*;
+import io.github.redstoneparadox.marionette.animation.setter.AnimatedFloatSetter;
 
 import java.util.Arrays;
 
@@ -14,27 +15,27 @@ import java.util.Arrays;
  */
 public class TweenAnimation<T> extends AbstractAnimation<T> {
 	private final SamplerFactory factory;
-	private final AnimationSetter<T> setter;
+	private final AnimatedFloatSetter<T> setter;
 	private Sampler sampler = null;
 	private int time = 0;
 	private int length = 0;
 	private boolean playing = false;
 	private boolean finished = true;
 
-	private TweenAnimation(SamplerFactory factory, AnimationSetter<T> setter) {
+	private TweenAnimation(SamplerFactory factory, AnimatedFloatSetter<T> setter) {
 		this.factory = factory;
 		this.setter = setter;
 	}
 
-	public static <T> TweenAnimation<T> linear(AnimationSetter<T> setter) {
+	public static <T> TweenAnimation<T> linear(AnimatedFloatSetter<T> setter) {
 		return new TweenAnimation<>(LinearSampler::new, setter);
 	}
 
-	public static <T> TweenAnimation<T> cubic(AnimationSetter<T> setter) {
+	public static <T> TweenAnimation<T> cubic(AnimatedFloatSetter<T> setter) {
 		return new TweenAnimation<>(CubicSampler::new, setter);
 	}
 
-	public static <T> TweenAnimation<T> sine(AnimationSetter<T> setter) {
+	public static <T> TweenAnimation<T> sine(AnimatedFloatSetter<T> setter) {
 		return new TweenAnimation<>(SineSampler::new, setter);
 	}
 
