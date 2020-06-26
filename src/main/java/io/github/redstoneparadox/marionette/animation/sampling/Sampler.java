@@ -41,7 +41,7 @@ public abstract class Sampler {
 	 * @param second The second keyframe value.
 	 * @return The interpolated value between the two keyframes.
 	 */
-	protected abstract float sample(float totalTime, float deltaTime, float first, float second);
+	abstract float sample(float totalTime, float deltaTime, float first, float second);
 
 	private Pair<KeyFrame, KeyFrame> getFrames(float time) {
 		int frameIndex = 0;
