@@ -7,8 +7,7 @@ import net.minecraft.client.util.math.MatrixStack;
 
 /**
  * A {@link ModelPart} that can be scaled or have its
- * tint color change. At the moment, changing the
- * color doesn't do anything.
+ * tint color changed.
  */
 public class ExtendedModelPart extends ModelPart {
 	public float scaleX = 1.0f;
@@ -33,6 +32,11 @@ public class ExtendedModelPart extends ModelPart {
 
 	@Override
 	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
+		this.red = clamp(this.red);
+		this.green = clamp(this.green);
+		this.blue = clamp(this.blue);
+		this.alpha = clamp(this.alpha);
+
 		if (this.visible) {
 			if (!cuboids.isEmpty() || !children.isEmpty()) {
 				matrices.push();
@@ -51,5 +55,9 @@ public class ExtendedModelPart extends ModelPart {
 				matrices.pop();
 			}
 		}
+	}
+
+	private float clamp(float f) {
+		return Math.max(0.0f, Math.min(f, 1.0f));
 	}
 }
