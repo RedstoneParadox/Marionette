@@ -1,7 +1,6 @@
 package io.github.redstoneparadox.marionette.animation;
 
 import io.github.redstoneparadox.marionette.animation.sampling.*;
-import io.github.redstoneparadox.marionette.animation.setter.AnimatedFloatSetter;
 
 import java.util.Arrays;
 
@@ -42,8 +41,8 @@ public class TweenAnimation<T> extends AbstractAnimation<T> {
 	public void tween(float from, float to, int ticks) {
 		length = ticks;
 
-		KeyFrame.FloatKeyFrame first = new KeyFrame.FloatKeyFrame(0, from);
-		KeyFrame.FloatKeyFrame second = new KeyFrame.FloatKeyFrame(ticks, to);
+		KeyFrame first = new KeyFrame(0, from);
+		KeyFrame second = new KeyFrame(ticks, to);
 
 		sampler = factory.create(Arrays.asList(first, second));
 		finished = false;
@@ -53,7 +52,7 @@ public class TweenAnimation<T> extends AbstractAnimation<T> {
 	@Override
 	public void step(T t) {
 		if (playing) {
-			float value = sampler.sampleFloat(time);
+			float value = sampler.sample(time);
 			setter.set(t, value);
 			time += 1;
 

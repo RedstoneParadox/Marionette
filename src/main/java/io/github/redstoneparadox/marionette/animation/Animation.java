@@ -2,7 +2,6 @@ package io.github.redstoneparadox.marionette.animation;
 
 import io.github.redstoneparadox.marionette.Marionette;
 import io.github.redstoneparadox.marionette.animation.sampling.*;
-import io.github.redstoneparadox.marionette.animation.setter.AnimatedFloatSetter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,7 +108,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 
 		void interpolate(T t, float time) {
 			if (time >= startTime) {
-				float value = time < length ? sampler.sampleFloat(time - startTime) : sampler.sampleFloat(length - startTime);
+				float value = time < length ? sampler.sample(time - startTime) : sampler.sample(length - startTime);
 				setter.set(t, value);
 			}
 		}
@@ -117,7 +116,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 
 	public static final class Builder<T> {
 		private final List<Track<T>> tracks = new ArrayList<>();
-		private List<KeyFrame.FloatKeyFrame> keyFrames;
+		private List<KeyFrame> keyFrames;
 		private SamplerFactory factory = LinearSampler::new;
 		private int length = 0;
 		private int startTime = 0;
@@ -204,7 +203,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 		public Builder<T> startTrack(float initialValue, int startTime) {
 			if (!creatingTrack) {
 				this.keyFrames = new ArrayList<>();
-				this.keyFrames.add(new KeyFrame.FloatKeyFrame(0, initialValue));
+				this.keyFrames.add(new KeyFrame(0, initialValue));
 				this.creatingTrack = true;
 				this.startTime = startTime;
 			} else {
@@ -232,7 +231,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 			}
 
 			this.length += ticks;
-			this.keyFrames.add(new KeyFrame.FloatKeyFrame(length, value));
+			this.keyFrames.add(new KeyFrame(length, value));
 			return this;
 		}
 

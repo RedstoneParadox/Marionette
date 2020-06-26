@@ -1,7 +1,4 @@
-package io.github.redstoneparadox.marionette.animation.setter;
-
-import io.github.redstoneparadox.marionette.animation.AbstractAnimation;
-import io.github.redstoneparadox.marionette.animation.Animation;
+package io.github.redstoneparadox.marionette.animation;
 
 /**
  * <p>Used by {@link Animation} and {@link AbstractAnimation}

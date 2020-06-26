@@ -4,5 +4,5 @@ import java.util.List;
 
 @FunctionalInterface
 public interface SamplerFactory {
-	Sampler create(List<KeyFrame.FloatKeyFrame> keyFrames);
+	Sampler create(List<KeyFrame> keyFrames);
 }

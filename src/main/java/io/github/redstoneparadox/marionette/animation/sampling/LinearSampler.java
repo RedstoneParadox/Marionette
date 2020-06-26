@@ -3,7 +3,7 @@ package io.github.redstoneparadox.marionette.animation.sampling;
 import java.util.List;
 
 public class LinearSampler extends Sampler {
-	public LinearSampler(List<KeyFrame.FloatKeyFrame> keyFrames) {
+	public LinearSampler(List<KeyFrame> keyFrames) {
 		super(keyFrames);
 	}
 

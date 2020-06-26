@@ -33,47 +33,23 @@ public abstract class Sampler {
 	abstract float sample(float totalTime, float deltaTime, float first, float second);
 
 	@ApiStatus.Internal
-	public final float sampleFloat(float time) {
-		if (!(keyFrames.get(0) instanceof KeyFrame.FloatKeyFrame)) {
-			Marionette.LOGGER.error("Attempted to sample float on sampler with vector keyframes!");
+	public final float sample(float time) {
+		if (keyFrames.get(0) == null) {
+			Marionette.LOGGER.error("Missing keyframe!");
 			return 0;
 		}
 
 		if (time <= 0.0f) {
-			return ((KeyFrame.FloatKeyFrame)keyFrames.get(0)).getValue();
+			return keyFrames.get(0).getValue();
 		}
 
 		Pair<KeyFrame, KeyFrame> pair = getFrames(time);
-		KeyFrame.FloatKeyFrame first = (KeyFrame.FloatKeyFrame) pair.getLeft();
-		KeyFrame.FloatKeyFrame second = (KeyFrame.FloatKeyFrame) pair.getRight();
+		KeyFrame first = pair.getLeft();
+		KeyFrame second = pair.getRight();
 		float totalTime = second.getTime() - first.getTime();
 		float deltaTime = time - first.getTime();
 
 		return sample(totalTime, deltaTime, first.getValue(), second.getValue());
-	}
-
-	@ApiStatus.Internal
-	public final Vector3f sampleVector(float time) {
-		if (!(keyFrames.get(0) instanceof KeyFrame.VectorKeyFrame)) {
-			Marionette.LOGGER.error("Attempted to sample float on sampler with vector keyframes!");
-			return new Vector3f(0, 0, 0);
-		}
-
-		if (time <= 0.0f) {
-			return ((KeyFrame.VectorKeyFrame)keyFrames.get(0)).getValue();
-		}
-
-		Pair<KeyFrame, KeyFrame> pair = getFrames(time);
-		KeyFrame.VectorKeyFrame first = (KeyFrame.VectorKeyFrame) pair.getLeft();
-		KeyFrame.VectorKeyFrame second = (KeyFrame.VectorKeyFrame) pair.getRight();
-		float totalTime = second.getTime() - first.getTime();
-		float deltaTime = time - first.getTime();
-
-		float x = sample(totalTime, deltaTime, first.getValue().getX(), second.getValue().getX());
-		float y = sample(totalTime, deltaTime, first.getValue().getY(), second.getValue().getY());
-		float z = sample(totalTime, deltaTime, first.getValue().getZ(), second.getValue().getZ());
-
-		return new Vector3f(0, 0, 0);
 	}
 
 	private Pair<KeyFrame, KeyFrame> getFrames(float time) {
