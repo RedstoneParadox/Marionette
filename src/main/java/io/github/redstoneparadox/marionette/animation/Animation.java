@@ -108,7 +108,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 
 		void interpolate(T t, float time) {
 			if (time >= startTime) {
-				float value = time < length ? sampler.sample(time - startTime) : sampler.sample(length - startTime);
+				float value = time < length ? sampler.sampleFloat(time - startTime) : sampler.sampleFloat(length - startTime);
 				setter.set(t, value);
 			}
 		}

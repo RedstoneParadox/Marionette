@@ -6,6 +6,8 @@ import org.jetbrains.annotations.ApiStatus;
 public abstract class KeyFrame {
 	private KeyFrame() {}
 
+	public abstract int getTime();
+
 	@ApiStatus.Internal
 	public static final class FloatKeyFrame extends KeyFrame {
 		final int time;
@@ -16,6 +18,7 @@ public abstract class KeyFrame {
 			this.value = value;
 		}
 
+		@Override
 		public int getTime() {
 			return time;
 		}
@@ -28,19 +31,20 @@ public abstract class KeyFrame {
 	@ApiStatus.Internal
 	public static final class VectorKeyFrame extends KeyFrame {
 		private final int time;
-		private final Vector3f vector;
+		private final Vector3f value;
 
-		public VectorKeyFrame(int time, Vector3f vector) {
+		public VectorKeyFrame(int time, Vector3f value) {
 			this.time = time;
-			this.vector = vector;
+			this.value = value;
 		}
 
+		@Override
 		public int getTime() {
 			return time;
 		}
 
-		public Vector3f getVector() {
-			return vector;
+		public Vector3f getValue() {
+			return value;
 		}
 	}
 }

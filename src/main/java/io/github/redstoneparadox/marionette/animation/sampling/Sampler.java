@@ -1,5 +1,7 @@
 package io.github.redstoneparadox.marionette.animation.sampling;
 
+import io.github.redstoneparadox.marionette.Marionette;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Pair;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -13,9 +15,9 @@ import java.util.List;
  * {@link SineSampler} for examples.
  */
 public abstract class Sampler {
-	private final List<KeyFrame.FloatKeyFrame> keyFrames;
+	private final List<KeyFrame> keyFrames;
 
-	protected Sampler(List<KeyFrame.FloatKeyFrame> keyFrames) {
+	protected Sampler(List<KeyFrame> keyFrames) {
 		this.keyFrames = keyFrames;
 	}
 
@@ -31,22 +33,50 @@ public abstract class Sampler {
 	abstract float sample(float totalTime, float deltaTime, float first, float second);
 
 	@ApiStatus.Internal
-	public final float sample(float time) {
-		if (time <= 0.0f) {
-			return keyFrames.get(0).getValue();
+	public final float sampleFloat(float time) {
+		if (!(keyFrames.get(0) instanceof KeyFrame.FloatKeyFrame)) {
+			Marionette.LOGGER.error("Attempted to sample float on sampler with vector keyframes!");
+			return 0;
 		}
 
-		Pair<KeyFrame.FloatKeyFrame, KeyFrame.FloatKeyFrame> pair = getFrames(time);
-		KeyFrame.FloatKeyFrame first = pair.getLeft();
-		KeyFrame.FloatKeyFrame second = pair.getRight();
+		if (time <= 0.0f) {
+			return ((KeyFrame.FloatKeyFrame)keyFrames.get(0)).getValue();
+		}
 
+		Pair<KeyFrame, KeyFrame> pair = getFrames(time);
+		KeyFrame.FloatKeyFrame first = (KeyFrame.FloatKeyFrame) pair.getLeft();
+		KeyFrame.FloatKeyFrame second = (KeyFrame.FloatKeyFrame) pair.getRight();
 		float totalTime = second.getTime() - first.getTime();
 		float deltaTime = time - first.getTime();
 
 		return sample(totalTime, deltaTime, first.getValue(), second.getValue());
 	}
 
-	private Pair<KeyFrame.FloatKeyFrame, KeyFrame.FloatKeyFrame> getFrames(float time) {
+	@ApiStatus.Internal
+	public final Vector3f sampleVector(float time) {
+		if (!(keyFrames.get(0) instanceof KeyFrame.VectorKeyFrame)) {
+			Marionette.LOGGER.error("Attempted to sample float on sampler with vector keyframes!");
+			return new Vector3f(0, 0, 0);
+		}
+
+		if (time <= 0.0f) {
+			return ((KeyFrame.VectorKeyFrame)keyFrames.get(0)).getValue();
+		}
+
+		Pair<KeyFrame, KeyFrame> pair = getFrames(time);
+		KeyFrame.VectorKeyFrame first = (KeyFrame.VectorKeyFrame) pair.getLeft();
+		KeyFrame.VectorKeyFrame second = (KeyFrame.VectorKeyFrame) pair.getRight();
+		float totalTime = second.getTime() - first.getTime();
+		float deltaTime = time - first.getTime();
+
+		float x = sample(totalTime, deltaTime, first.getValue().getX(), second.getValue().getX());
+		float y = sample(totalTime, deltaTime, first.getValue().getY(), second.getValue().getY());
+		float z = sample(totalTime, deltaTime, first.getValue().getZ(), second.getValue().getZ());
+
+		return new Vector3f(0, 0, 0);
+	}
+
+	private Pair<KeyFrame, KeyFrame> getFrames(float time) {
 		int frameIndex = 0;
 
 

@@ -52,7 +52,7 @@ public class TweenAnimation<T> extends AbstractAnimation<T> {
 	@Override
 	public void step(T t) {
 		if (playing) {
-			float value = sampler.sample(time);
+			float value = sampler.sampleFloat(time);
 			setter.set(t, value);
 			time += 1;
 
