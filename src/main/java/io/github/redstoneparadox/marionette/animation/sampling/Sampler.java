@@ -1,21 +1,49 @@
 package io.github.redstoneparadox.marionette.animation.sampling;
 
 import io.github.redstoneparadox.marionette.animation.KeyFrame;
+import net.minecraft.util.Pair;
+import org.jetbrains.annotations.ApiStatus;
+
 import java.util.List;
 
 /**
  * Used to interpolate over a series of key frames.
  */
 public abstract class Sampler {
-	protected final List<KeyFrame> keyFrames;
+	private final List<KeyFrame> keyFrames;
 
 	protected Sampler(List<KeyFrame> keyFrames) {
 		this.keyFrames = keyFrames;
 	}
 
-	public abstract float sample(float time);
+	@ApiStatus.Internal
+	public float sample(float time) {
+		if (time <= 0.0f) {
+			return keyFrames.get(0).getValue();
+		}
 
-	protected KeyFramePair getFrames(float time) {
+		Pair<KeyFrame, KeyFrame> pair = getFrames(time);
+		KeyFrame first = pair.getLeft();
+		KeyFrame second = pair.getRight();
+
+		float totalTime = second.getTime() - first.getTime();
+		float deltaTime = time - first.getTime();
+
+		return sample(totalTime, deltaTime, first.getValue(), second.getValue());
+	}
+
+	/**
+	 * Called to sample a value between two keyframes.
+	 *
+	 * @param totalTime The time between the two keyframes.
+	 * @param deltaTime The time after the first keyframe to sample at.
+	 * @param first The first keyframe value.
+	 * @param second The second keyframe value.
+	 * @return The interpolated value between the two keyframes.
+	 */
+	protected abstract float sample(float totalTime, float deltaTime, float first, float second);
+
+	private Pair<KeyFrame, KeyFrame> getFrames(float time) {
 		int frameIndex = 0;
 
 
@@ -26,16 +54,6 @@ public abstract class Sampler {
 			}
 		}
 
-		return new KeyFramePair(keyFrames.get(frameIndex - 1), keyFrames.get(frameIndex));
-	}
-
-	protected static class KeyFramePair {
-		final KeyFrame first;
-		final KeyFrame second;
-
-		public KeyFramePair(KeyFrame first, KeyFrame second) {
-			this.first = first;
-			this.second = second;
-		}
+		return new Pair<>(keyFrames.get(frameIndex - 1), keyFrames.get(frameIndex));
 	}
 }

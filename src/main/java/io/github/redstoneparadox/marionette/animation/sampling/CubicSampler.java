@@ -13,16 +13,8 @@ public class CubicSampler extends Sampler {
 	}
 
 	@Override
-	public float sample(float time) {
-		if (time <= 0.0f) {
-			return keyFrames.get(0).getValue();
-		}
-
-		KeyFramePair pair = getFrames(time);
-		KeyFrame first = pair.first;
-		KeyFrame second = pair.second;
-
-		float x = (time - first.getTime())/(second.getTime() - first.getTime());
+	float sample(float totalTime, float deltaTime, float first, float second) {
+		float x = deltaTime/totalTime;
 
 		float y;
 		if (x >= 0.0f && x < 0.5f) {
@@ -35,7 +27,6 @@ public class CubicSampler extends Sampler {
 			throw new IllegalStateException("Expected x value between 0 and 1, instead got " + x + ".");
 		}
 
-		float delta = second.getValue() - first.getValue();
-		return (y * delta) + first.getValue();
+		return y * (second - first) + first;
 	}
 }

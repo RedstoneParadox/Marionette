@@ -9,17 +9,8 @@ public class LinearSampler extends Sampler {
 	}
 
 	@Override
-	public float sample(float time) {
-		if (time <= 0.0f) {
-			return keyFrames.get(0).getValue();
-		}
-
-		KeyFramePair pair = getFrames(time);
-		KeyFrame first = pair.first;
-		KeyFrame second = pair.second;
-
-		float slope = (second.getValue() - first.getValue())/(second.getTime() - first.getTime());
-
-		return (slope * (time - first.getTime())) + first.getValue();
+	float sample(float totalTime, float deltaTime, float first, float second) {
+		float slope = (second - first)/totalTime;
+		return slope * deltaTime + first;
 	}
 }
