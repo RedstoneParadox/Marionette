@@ -35,7 +35,7 @@ public class TestEntity extends LivingEntity implements AnimationHolder<TestEnti
 		spinAnimation = new Animation.Builder<TestEntityModel>()
 				.startTrack(0.0f)
 				.keyFrame((float) (2 * Math.PI), 100)
-				.completeTrack((testEntityModel, value) -> testEntityModel.part.yaw = value)
+				.completeTrack((testEntityModel, value) -> testEntityModel.part.roll = value)
 				.build(true);
 
 		spinAnimation.play();
