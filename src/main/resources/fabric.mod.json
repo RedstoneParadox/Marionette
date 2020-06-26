@@ -18,11 +18,9 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.redstoneparadox.marionette.test.MarionetteTest"
     ],
     "client": [
-      "io.github.redstoneparadox.marionette.Marionette",
-      "io.github.redstoneparadox.marionette.test.MarionetteTestClient"
+      "io.github.redstoneparadox.marionette.Marionette"
     ]
   },
   "accessWidener": "marionette.accesswidener",

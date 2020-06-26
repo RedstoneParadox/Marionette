@@ -12,6 +12,6 @@ public class TestEntityRenderer extends LivingEntityRenderer<TestEntity, TestEnt
 
 	@Override
 	public Identifier getTexture(TestEntity entity) {
-		return new Identifier("marionette","textures/entity/test.png");
+		return new Identifier("marionette-test","textures/entity/test.png");
 	}
 }

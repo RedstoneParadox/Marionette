@@ -14,6 +14,14 @@ minecraft {
 	accessWidener = file("src/main/resources/marionette.accesswidener")
 }
 
+
+sourceSets {
+	testmod {
+		compileClasspath += main.compileClasspath
+		runtimeClasspath += main.runtimeClasspath
+	}
+}
+
 dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -27,6 +35,10 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 
 	compile "org.jetbrains:annotations:${project.jetbrains_annotations}"
+
+	afterEvaluate {
+		testmodImplementation sourceSets.main.output
+	}
 }
 
 processResources {
