@@ -1,5 +1,5 @@
 # Marionette
-[ ![Download](https://api.bintray.com/packages/redstoneparadox/mods/Marionette/images/download.svg?version=0.1.0-alpha) ](https://bintray.com/redstoneparadox/mods/Marionette/0.1.0-alpha/link)
+[ ![Download](https://api.bintray.com/packages/redstoneparadox/mods/Marionette/images/download.svg?version=0.3.0-beta) ](https://bintray.com/redstoneparadox/mods/Marionette/0.3.0-beta/link)
 
 Marionette is a library that aims to make creating and animating custom entity models more approachable.
 
