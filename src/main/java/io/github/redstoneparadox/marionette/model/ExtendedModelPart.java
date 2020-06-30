@@ -49,7 +49,7 @@ public class ExtendedModelPart extends ModelPart {
 						child.render(matrices, vertices, light, overlay);
 					}
 					else {
-						child.render(matrices, vertices, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f);
+						child.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 					}
 				}
 				matrices.pop();
