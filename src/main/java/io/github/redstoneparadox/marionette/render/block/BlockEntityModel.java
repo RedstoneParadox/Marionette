@@ -19,8 +19,4 @@ public abstract class BlockEntityModel extends Model {
 	public BlockEntityModel(Identifier texture) {
 		this(texture, RenderLayer::getEntitySolid);
 	}
-
-	public Identifier getTexture() {
-		return texture;
-	}
 }

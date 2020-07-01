@@ -8,6 +8,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 
 public abstract class ExtendedBlockEntityRenderer<U extends BlockEntityModel, T extends BlockEntity & AnimationHolder<U>> extends BlockEntityRenderer<T> {
 	final U model;
@@ -23,7 +24,9 @@ public abstract class ExtendedBlockEntityRenderer<U extends BlockEntityModel, T 
 			animation.step(model);
 		}
 
-		RenderLayer layer = model.getLayer(model.getTexture());
+		RenderLayer layer = model.getLayer(getTexture(entity));
 		model.render(matrices, vertexConsumers.getBuffer(layer), light, overlay, 1.0f, 1.0f, 1.0f, 1.0f);
 	}
+
+	public abstract Identifier getTexture(T entity);
 }
