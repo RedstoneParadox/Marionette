@@ -8,7 +8,7 @@ import net.minecraft.client.util.math.MatrixStack;
 
 // Default pivot point for model parts seems to be 1.5 blocks off the ground, which is where the origin also is.
 // Positive z on the model part translates to negative z ingame.
-public class TestEntityModel extends ExtendedEntityModel<TestEntityModel, TestEntity> {
+public class TestEntityModel extends ExtendedEntityModel<TestEntity> {
 	public final ExtendedModelPart part;
 
 	public TestEntityModel() {

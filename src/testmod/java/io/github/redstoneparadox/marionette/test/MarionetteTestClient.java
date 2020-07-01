@@ -9,6 +9,6 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 public class MarionetteTestClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		EntityRendererRegistry.INSTANCE.register(TestEntity.TYPE, ((dispatcher, context) -> new TestEntityRenderer(dispatcher, new TestEntityModel(), 1.0f)));
+		EntityRendererRegistry.INSTANCE.register(TestEntity.TYPE, ((dispatcher, context) -> new TestEntityRenderer(new TestEntityModel(), dispatcher, 1.0f)));
 	}
 }

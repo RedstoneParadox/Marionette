@@ -1,13 +1,14 @@
 package io.github.redstoneparadox.marionette.test.render;
 
+import io.github.redstoneparadox.marionette.render.entity.ExtendedEntityRenderer;
 import io.github.redstoneparadox.marionette.test.entity.TestEntity;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.util.Identifier;
 
-public class TestEntityRenderer extends LivingEntityRenderer<TestEntity, TestEntityModel> {
-	public TestEntityRenderer(EntityRenderDispatcher dispatcher, TestEntityModel model, float shadowRadius) {
-		super(dispatcher, model, shadowRadius);
+public class TestEntityRenderer extends ExtendedEntityRenderer<TestEntityModel, TestEntity> {
+	public TestEntityRenderer(TestEntityModel model, EntityRenderDispatcher dispatcher, float shadowRadius) {
+		super(model, dispatcher, shadowRadius);
 	}
 
 	@Override
