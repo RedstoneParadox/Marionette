@@ -27,6 +27,6 @@ public abstract class ExtendedEntityRenderer<U extends EntityModel<T>, T extends
 		}
 
 		RenderLayer layer = model.getLayer(getTexture(entity));
-		model.render(matrices, vertexConsumers.getBuffer(layer), light, 1, 1.0f, 1.0f, 1.0f, 1.0f);
+		model.render(matrices, vertexConsumers.getBuffer(layer), light, 0, 1.0f, 1.0f, 1.0f, 1.0f);
 	}
 }
