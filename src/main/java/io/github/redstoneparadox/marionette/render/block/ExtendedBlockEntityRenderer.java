@@ -3,20 +3,27 @@ package io.github.redstoneparadox.marionette.render.block;
 import io.github.redstoneparadox.marionette.animation.AbstractAnimation;
 import io.github.redstoneparadox.marionette.animation.AnimationHolder;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 
-public abstract class ExtendedBlockEntityRenderer<U extends BlockEntityRenderer<T>, T extends BlockEntity & AnimationHolder<U>> extends BlockEntityRenderer<T> {
-	public ExtendedBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
+public abstract class ExtendedBlockEntityRenderer<U extends BlockEntityModel, T extends BlockEntity & AnimationHolder<U>> extends BlockEntityRenderer<T> {
+	final U model;
+
+	public ExtendedBlockEntityRenderer(U model, BlockEntityRenderDispatcher dispatcher) {
 		super(dispatcher);
+		this.model = model;
 	}
 
 	@Override
 	public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 		for (AbstractAnimation<U> animation: entity.getAnimations()) {
-			animation.step((U) this);
+			animation.step(model);
 		}
+
+		RenderLayer layer = model.getLayer(model.getTexture());
+		model.render(matrices, vertexConsumers.getBuffer(layer), light, overlay, 1.0f, 1.0f, 1.0f, 1.0f);
 	}
 }
