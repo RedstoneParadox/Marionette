@@ -2,6 +2,7 @@ package io.github.redstoneparadox.marionette.animation;
 
 import io.github.redstoneparadox.marionette.Marionette;
 import io.github.redstoneparadox.marionette.animation.sampling.*;
+import net.minecraft.client.MinecraftClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +18,16 @@ public final class Animation<T> extends AbstractAnimation<T> {
 	private final List<Track<T>> tracks;
 	private final int length;
 	private final boolean repeat;
+	private final boolean playWhileGamePaused;
 	private float time = 0.0f;
 	private float speed = 1.0f;
 	private boolean playing = false;
 	private boolean finished = true;
 
-	public Animation(List<Track<T>> tracks, boolean repeat) {
+	public Animation(List<Track<T>> tracks, boolean repeat, boolean playWhileGamePaused) {
 		this.tracks = tracks;
 		this.repeat = repeat;
+		this.playWhileGamePaused = playWhileGamePaused;
 
 		int length = 0;
 
@@ -37,6 +40,12 @@ public final class Animation<T> extends AbstractAnimation<T> {
 
 	@Override
 	public void step(T t) {
+		MinecraftClient client = MinecraftClient.getInstance();
+
+		if (!playWhileGamePaused && client.isInSingleplayer() && client.isPaused()) {
+			return;
+		}
+
 		if (playing) {
 			for (Track<T> track: tracks) {
 				track.interpolate(t, time);
@@ -118,6 +127,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 		private final List<Track<T>> tracks = new ArrayList<>();
 		private List<KeyFrame> keyFrames;
 		private SamplerFactory factory = LinearSampler::new;
+		private boolean playWhileGamePaused = true;
 		private int length = 0;
 		private int startTime = 0;
 		boolean creatingTrack = false;
@@ -172,6 +182,19 @@ public final class Animation<T> extends AbstractAnimation<T> {
 		 */
 		public Builder<T> customSampler(SamplerFactory factory) {
 			this.factory = factory;
+			return this;
+		}
+
+		/**
+		 * Sets if this animation should play while the game is paused.
+		 * Has no effect if the game is paused while the player is
+		 * connected to a server.
+		 *
+		 * @param playWhileGamePaused Whether it should play if the game is paused.
+		 * @return The {@link Animation.Builder} for further modification.
+		 */
+		public Builder<T> playWhileGamePaused(boolean playWhileGamePaused) {
+			this.playWhileGamePaused = playWhileGamePaused;
 			return this;
 		}
 
@@ -248,7 +271,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 		}
 
 		public Animation<T> build(boolean repeat) {
-			return new Animation<>(tracks, repeat);
+			return new Animation<>(tracks, repeat, playWhileGamePaused);
 		}
 	}
 }
