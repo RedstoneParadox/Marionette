@@ -4,6 +4,8 @@
   "package": "io.github.redstoneparadox.marionette.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "entity.LivingEntityMixin",
+    "entity.LivingEntityRendererMixin"
   ],
   "client": [
   ],
