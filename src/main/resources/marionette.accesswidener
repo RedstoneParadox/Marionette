@@ -7,3 +7,11 @@ accessible field net/minecraft/client/model/ModelPart textureOffsetV I
 accessible field net/minecraft/client/model/ModelPart cuboids Lit/unimi/dsi/fastutil/objects/ObjectList;
 accessible field net/minecraft/client/model/ModelPart children Lit/unimi/dsi/fastutil/objects/ObjectList;
 accessible method net/minecraft/client/model/ModelPart renderCuboids (Lnet/minecraft/client/util/math/MatrixStack$Entry;Lnet/minecraft/client/render/VertexConsumer;IIFFFF)V
+
+# Pig Model
+accessible field net/minecraft/client/render/entity/model/QuadrupedEntityModel head Lnet/minecraft/client/model/ModelPart;
+accessible field net/minecraft/client/render/entity/model/QuadrupedEntityModel torso Lnet/minecraft/client/model/ModelPart;
+accessible field net/minecraft/client/render/entity/model/QuadrupedEntityModel backRightLeg Lnet/minecraft/client/model/ModelPart;
+accessible field net/minecraft/client/render/entity/model/QuadrupedEntityModel backLeftLeg Lnet/minecraft/client/model/ModelPart;
+accessible field net/minecraft/client/render/entity/model/QuadrupedEntityModel frontRightLeg Lnet/minecraft/client/model/ModelPart;
+accessible field net/minecraft/client/render/entity/model/QuadrupedEntityModel frontLeftLeg Lnet/minecraft/client/model/ModelPart;

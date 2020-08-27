@@ -4,6 +4,7 @@ import io.github.redstoneparadox.marionette.animation.AbstractAnimation;
 import io.github.redstoneparadox.marionette.animation.AnimationHolder;
 import io.github.redstoneparadox.marionette.animation.CompositeAnimationHolder;
 import io.github.redstoneparadox.marionette.animation.TickableAnimationHolder;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin<T extends LivingEntity> implements CompositeAnimationHolder<T> {
+public abstract class LivingEntityMixin<T extends EntityModel<U>, U extends LivingEntity> implements CompositeAnimationHolder<T> {
 	@Unique
 	private List<AnimationHolder<T>> holders = new ArrayList<>();
 
@@ -42,7 +43,7 @@ public abstract class LivingEntityMixin<T extends LivingEntity> implements Compo
 
 		holders.forEach(tAnimationHolder -> {
 			if (tAnimationHolder instanceof TickableAnimationHolder) {
-				((TickableAnimationHolder<T>) tAnimationHolder).tick((T) self);
+				((TickableAnimationHolder<T, U>) tAnimationHolder).tick((U) self);
 			}
 		});
 	}

@@ -5,12 +5,12 @@ package io.github.redstoneparadox.marionette.animation;
  *
  * @param <T> The type.
  */
-public interface TickableAnimationHolder<T> extends AnimationHolder<T> {
+public interface TickableAnimationHolder<T, U> extends AnimationHolder<T> {
 
 	/**
 	 * Called every tick on the client.
 	 *
-	 * @param t The object being ticked.
+	 * @param u The object being ticked.
 	 */
-	void tick(T t);
+	void tick(U u);
 }
