@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "marionette",
-  "version": "0.1.0-alpha",
+  "version": "0.4.0-beta",
 
   "name": "Marionette",
   "description": "A library for creating and animating mob models.",
