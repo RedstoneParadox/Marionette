@@ -2,22 +2,15 @@ package io.github.redstoneparadox.marionette.test;
 
 import io.github.redstoneparadox.marionette.animation.AbstractAnimation;
 import io.github.redstoneparadox.marionette.animation.Animation;
-import io.github.redstoneparadox.marionette.animation.CompositeAnimationHolder;
 import io.github.redstoneparadox.marionette.animation.TickableAnimationHolder;
 import io.github.redstoneparadox.marionette.test.entity.TestEntity;
 import io.github.redstoneparadox.marionette.test.render.TestEntityModel;
 import io.github.redstoneparadox.marionette.test.render.TestEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.render.entity.model.PigEntityModel;
-import net.minecraft.client.render.entity.model.QuadrupedEntityModel;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.PigEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

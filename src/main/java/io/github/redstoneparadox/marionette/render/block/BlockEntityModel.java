@@ -4,8 +4,6 @@ import net.minecraft.client.model.Model;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
 public abstract class BlockEntityModel extends Model {

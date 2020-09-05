@@ -1,7 +1,5 @@
 package io.github.redstoneparadox.marionette.animation;
 
-import org.jetbrains.annotations.ApiStatus;
-
 /**
  * DO NOT IMPLEMENT. For internal implementation only.
  */
