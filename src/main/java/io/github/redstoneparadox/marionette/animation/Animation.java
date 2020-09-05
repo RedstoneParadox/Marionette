@@ -127,7 +127,7 @@ public final class Animation<T> extends AbstractAnimation<T> {
 		private final List<Track<T>> tracks = new ArrayList<>();
 		private List<KeyFrame> keyFrames;
 		private SamplerFactory factory = LinearSampler::new;
-		private boolean playWhileGamePaused = true;
+		private boolean playWhileGamePaused = false;
 		private int length = 0;
 		private int startTime = 0;
 		boolean creatingTrack = false;
@@ -186,15 +186,13 @@ public final class Animation<T> extends AbstractAnimation<T> {
 		}
 
 		/**
-		 * Sets if this animation should play while the game is paused.
-		 * Has no effect if the game is paused while the player is
-		 * connected to a server.
+		 * Allows the animation to play while the game is paused in
+		 * single player.
 		 *
-		 * @param playWhileGamePaused Whether it should play if the game is paused.
 		 * @return The {@link Animation.Builder} for further modification.
 		 */
-		public Builder<T> playWhileGamePaused(boolean playWhileGamePaused) {
-			this.playWhileGamePaused = playWhileGamePaused;
+		public Builder<T> playWhileGamePaused() {
+			this.playWhileGamePaused = true;
 			return this;
 		}
 
