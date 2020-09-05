@@ -1,4 +1,4 @@
-package io.github.redstoneparadox.marionette.render.entity;
+package io.github.redstoneparadox.marionette.model;
 
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.entity.Entity;

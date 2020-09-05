@@ -2,6 +2,7 @@ package io.github.redstoneparadox.marionette.render.block;
 
 import io.github.redstoneparadox.marionette.animation.AbstractAnimation;
 import io.github.redstoneparadox.marionette.animation.AnimationHolder;
+import io.github.redstoneparadox.marionette.model.BlockEntityModel;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;

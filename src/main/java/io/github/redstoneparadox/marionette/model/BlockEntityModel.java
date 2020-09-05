@@ -1,4 +1,4 @@
-package io.github.redstoneparadox.marionette.render.block;
+package io.github.redstoneparadox.marionette.model;
 
 import net.minecraft.client.model.Model;
 import net.minecraft.client.render.RenderLayer;

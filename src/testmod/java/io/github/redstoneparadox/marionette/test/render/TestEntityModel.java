@@ -1,7 +1,7 @@
 package io.github.redstoneparadox.marionette.test.render;
 
 import io.github.redstoneparadox.marionette.model.ExtendedModelPart;
-import io.github.redstoneparadox.marionette.render.entity.ExtendedEntityModel;
+import io.github.redstoneparadox.marionette.model.ExtendedEntityModel;
 import io.github.redstoneparadox.marionette.test.entity.TestEntity;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
