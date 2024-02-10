@@ -3,12 +3,12 @@ plugins {
 	alias libs.plugins.quilt.loom
 }
 
-// sourceCompatibility = JavaVersion.VERSION_1_8
-// targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
-// archivesBaseName = project.archives_base_name
-// version = project.mod_version
-// group = project.maven_group
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
 
 repositories {
 	maven {
@@ -16,14 +16,12 @@ repositories {
 		url = 'https://maven.quiltmc.org/repository/release/'
 	}
 }
-/*
-minecraft {
-	accessWidener = file("src/main/resources/marionette.accesswidener")
+
+loom {
+	accessWidenerPath = file("src/main/resources/marionette.accesswidener")
 }
 
- */
 
-/*
 sourceSets {
 	testmod {
 		compileClasspath += main.compileClasspath
@@ -31,20 +29,9 @@ sourceSets {
 	}
 }
 
- */
-
 dependencies {
-	/*
 	minecraft libs.minecraft
 	mappings variantOf(libs.quilt.mappings) { classifier 'intermediary-v2' }
-	// Replace the above line with the block below if you want to use Mojang mappings as your primary mappings, falling back on QM for parameters and Javadocs
-	/*
-	mappings loom.layered {
-		mappings "org.quiltmc:quilt-mappings:${libs.versions.quilt.mappings.get()}:intermediary-v2"
-		officialMojangMappings()
-	}
-	*/
-	/*
 	modImplementation libs.quilt.loader
 
 	// QSL is not a complete API; You will need Quilted Fabric API to fill in the gaps.
@@ -52,19 +39,11 @@ dependencies {
 	modImplementation libs.quilt.standard.libraries
 	modImplementation libs.quilted.fabric.api
 
-	 */
-
-	/*
-	compile "org.jetbrains:annotations:${project.jetbrains_annotations}"
-
 	afterEvaluate {
 		testmodImplementation sourceSets.main.output
 	}
-
-	 */
 }
 
-/*
 processResources {
 	inputs.property "version", project.version
 
@@ -73,15 +52,13 @@ processResources {
 	}
 }
 
- */
-
 tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = 'UTF-8'
 	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
 	it.options.release = 17
 }
 
-/*
+
 java {
 	// Still required by IDEs such as Eclipse and Visual Studio Code
 	sourceCompatibility = JavaVersion.VERSION_17
@@ -102,9 +79,6 @@ jar {
 	}
 }
 
- */
-
-/*
 // configure the maven publication
 publishing {
 	publications {
@@ -128,5 +102,3 @@ publishing {
 		}
 	}
 }
-
- */
